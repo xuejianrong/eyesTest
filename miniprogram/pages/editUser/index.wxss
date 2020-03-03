@@ -1,0 +1,110 @@
+/* miniprogram/pages/editUser/index.wxss */
+page {
+  background: #fff;
+}
+.edit-user {
+  position: relative;
+  min-height: 100%;
+  background: #fff;
+  padding-bottom: 200rpx;
+}
+.avatar {
+  position: relative;
+  padding: 40rpx 0;
+  text-align: center;
+}
+.avatar-image {
+  width: 210rpx;
+  height: 210rpx;
+  border-radius: 50%;
+}
+.avatar-plus {
+  position: absolute;
+  left: 426rpx;
+  top: 190rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+.section {
+  padding: 0 40rpx;
+}
+.section_gap {
+  margin-bottom: 20rpx;
+}
+.section__title {
+  font-size: 32rpx;
+  padding: 8rpx;
+  margin-bottom: 10rpx;
+}
+.section__input {
+  background: #f6f6f6;
+  padding: 0 30rpx;
+  line-height: 76rpx;
+  height: 76rpx;
+}
+.sex-btn {
+  font-size: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.sex-btn button {
+  width: 290rpx;
+  font-size: 30rpx;
+  background: #fff;
+  color: #999;
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, .1);
+}
+.sex-btn button::after {
+  border: 0;
+}
+.sex-btn .sex-btn__man-act {
+  color: #fff;
+  background: #018fff;
+}
+.sex-btn .sex-btn__woman-act {
+  color: #fff;
+  background: #ff737f;
+}
+.section__picker {
+  text-align: center;
+  height: 76rpx;
+  line-height: 76rpx;
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, .1);
+}
+
+.btn-area {
+  position: fixed;
+  left: 0;
+  bottom: 50rpx;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+.btn-area button {
+  width: 310rpx;
+  font-size: 34rpx;
+}
+.btn-area__cancel {
+  color: #999;
+}
+.btn-area__submit {
+  color: #fff;
+  background: #018fff;
+}
+.btn-area__submit:active {
+  background: #0191ffc0;
+}
+.btn-add__submit {
+  position: fixed;
+  left: 40rpx;
+  bottom: 50rpx;
+  width: 670rpx;
+  color: #fff;
+  font-size: 34rpx;
+  background: #018fff;
+}
+.btn-add__submit:active {
+  background: #0191ffc0;
+}

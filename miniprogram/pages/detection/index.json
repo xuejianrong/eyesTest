@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "tool": "/components/tool/index"
+  }
+}

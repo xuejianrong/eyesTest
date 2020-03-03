@@ -1,0 +1,40 @@
+/* miniprogram/components/tool/index.wxss */
+.tool {
+  position: fixed;
+  right: 40rpx;
+  bottom: 80rpx;
+  font-size: 0;
+  width: 80rpx;
+  height: 380rpx;
+  overflow: hidden;
+  border-radius: 80rpx;
+}
+.tool.type2 {
+  height: 280rpx;
+  bottom: 200rpx;
+  right: 65rpx;
+}
+.tool-icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+.tool-switch {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transition: all .3s;
+}
+.tool-switch_close {
+  transform: rotate(405deg)
+}
+.tool-list {
+  position: absolute;
+  bottom: 80rpx;
+  right: 0;
+  z-index: -1;
+}
+
+.tool-list image {
+  display: block;
+  margin-bottom: 20rpx;
+}

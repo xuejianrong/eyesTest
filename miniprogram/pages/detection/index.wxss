@@ -1,0 +1,93 @@
+/* miniprogram/pages/detection/index.wxss */
+.det-top {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 60rpx 0 0;
+  text-align: center;
+}
+.det-top__1 {
+  font-size: 40rpx;
+}
+.det-top__2 {
+  color: #bbb;
+}
+.green {
+  color: rgb(36, 235, 36);
+}
+.red {
+  color: rgb(238, 54, 54);
+}
+.det-top__3 {
+  display: flex;
+  padding: 20rpx 0;
+}
+.det-top__3 .left, .det-top__3 .right {
+  flex: 1;
+  color: #bbb;
+}
+.det-top__3 .center {
+  width: 220rpx;
+  background: #bbb;
+  color: #fff;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  padding: 10rpx 0;
+}
+.det-top__3 .active {
+  color: #018fff;
+  font-weight: bold;
+}
+
+.det-bar {
+  position: fixed;
+  left: 0;
+  bottom: 50rpx;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.det-bar-item {
+  width: 80rpx;
+  color: #bbb;
+  font-size: 26rpx;
+}
+.det-bar-item image {
+  width: 80rpx;
+  height: 80rpx;
+}
+.det-main {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 254rpx;
+  bottom: 220rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150rpx;
+}
+.btn {
+  position: absolute;
+  width: 120rpx;
+}
+.btn-up {
+  top: 80rpx;
+  left: 315rpx;
+}
+.btn-down {
+  bottom: 80rpx;
+  left: 315rpx;
+}
+.btn-left {
+  top: 350rpx;
+  left: 0;
+}
+.btn-right {
+  top: 350rpx;
+  right: 0;
+}

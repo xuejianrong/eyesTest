@@ -1,0 +1,18 @@
+/* components/headSwiper/index.wxss */
+swiper {
+  height: 260rpx;
+}
+.content {
+  text-align: center;
+  padding-top: 40rpx;
+}
+.content image {
+  width: 134rpx;
+  height: 134rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgb(172, 255, 251);
+}
+.content-add image {
+  background: none;
+}

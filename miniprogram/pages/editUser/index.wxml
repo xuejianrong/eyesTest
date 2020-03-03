@@ -1,0 +1,44 @@
+<view class="edit-user">
+  <view class="avatar">
+    <image bindtap="doUpload" class="avatar-image" src="{{ detail.avatar || '/images/headSwiper/user.png' }}"></image>
+    <image bindtap="doUpload" class="avatar-plus" src="/images/editUser/plus.png"></image>
+  </view>
+
+  <form bindsubmit="formSubmit">
+    <view class="section section_gap">
+      <view class="section__title">昵称</view>
+      <input class="section__input" name="name" placeholder="请输入昵称" value="{{detail.name}}" />
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">性别</view>
+      <view class="sex-btn" wx:if="{{ detail.sex === 'man' || !detail.sex }}">
+        <button class="sex-btn__man-act">男</button>
+        <button bindtap="selectWoman">女</button>
+      </view>
+      <view class="sex-btn" wx:else>
+        <button bindtap="selectMan">男</button>
+        <button class="sex-btn__woman-act">女</button>
+      </view>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">出生年月</view>
+      <picker mode="date" bindchange="bindDateChange" value="{{ detail.birth }}">
+        <view wx:if="{{ !detail.birth }}" class="section__picker">请选择出生年月</view>
+        <view wx:else class="section__picker">{{ detail.birth }}</view>
+      </picker>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">学校</view>
+      <input class="section__input" name="school" placeholder="请输入学校" value="{{ detail.school }}" />
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">年级</view>
+      <input class="section__input" name="grade" placeholder="请输入年级" value="{{ detail.grade }}" />
+    </view>
+    <button wx:if="{{ type === 'add' }}" class="btn-add__submit" formType="submit">确认添加</button>
+    <view class="btn-area" wx:else>
+      <button class="btn-area__cancel" bindtap="doDelete">删除</button>
+      <button class="btn-area__submit" formType="submit">确认修改</button>
+    </view>
+  </form>
+</view>

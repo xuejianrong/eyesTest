@@ -1,0 +1,39 @@
+<view class="det-top">
+  <view class="det-top__1">{{ list[current].value }}</view>
+  <view class="det-top__2">正确：<text class="green">{{ right }}</text> 错误：<text class="red">{{ wrong }}</text></view>
+  <view class="det-top__3">
+    <view class="left {{ type === 'left' ? 'active' : '' }}">左眼</view>
+    <view class="center">裸眼 2.5m</view>
+    <view class="right {{ type === 'right' ? 'active' : '' }}">右眼</view>
+  </view>
+</view>
+
+<view class="det-bar">
+  <view class="det-bar-item">
+    <image wx:if="{{ mic }}" bindtap="toogleMic" src="/images/tool/mic_open.png"></image>
+    <image wx:else bindtap="toogleMic" src="/images/tool/mic_close.png"></image>语音
+  </view>
+  <view class="det-bar-item">
+    <image src="/images/tool/add.png"></image>增大
+  </view>
+  <view class="det-bar-item">
+    <image src="/images/tool/down.png"></image>缩小
+  </view>
+  <view class="det-bar-item">
+    <image src="/images/tool/backout.png"></image>撤销
+  </view>
+  <view class="det-bar-item">
+    <image src="/images/tool/setting.png"></image>设置
+  </view>
+</view>
+
+<view class="det-main">
+  <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}.png"></image>
+  <!-- 模拟设备按钮 -->
+  <button class="btn btn-up" bindtap="answerUp">上</button>
+  <button class="btn btn-down" bindtap="answerDwon">下</button>
+  <button class="btn btn-left" bindtap="answerLeft">左</button>
+  <button class="btn btn-right" bindtap="answerRight">右</button>
+</view>
+
+<tool type="2"></tool>

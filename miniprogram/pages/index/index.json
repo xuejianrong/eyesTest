@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "head-swiper": "/components/headSwiper/index",
+    "tool": "/components/tool/index"
+  }
 }

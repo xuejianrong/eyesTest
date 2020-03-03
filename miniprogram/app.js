@@ -1,7 +1,6 @@
 //app.js
 App({
   onLaunch: function () {
-    
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -15,6 +14,32 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      currentIndex: 0,
+      users: [],
+      eyesightList: [
+        { value: '4.0/0.1', size: 212 },
+        { value: '4.1/0.12', size: 168 },
+        { value: '4.2/0.15', size: 134 },
+        { value: '4.3/0.2', size: 106 },
+        { value: '4.4/0.25', size: 84 },
+        { value: '4.5/0.3', size: 67 },
+        { value: '4.6/0.4', size: 53 },
+        { value: '4.7/0.5', size: 42 },
+        { value: '4.8/0.6', size: 34 },
+        { value: '4.9/0.8', size: 27 },
+        { value: '5.0/1.0', size: 21 },
+        { value: '5.1/1.2', size: 17 },
+        { value: '5.2/1.5', size: 13 },
+        { value: '5.3/2.0', size: 6 },
+      ]
+    }
+
+    // 初始化storage
+    wx.setStorage({ key: 'mic', data: true }) // mic的开关
+    wx.setStorage({ key: 'start', data: 0 }) // 测试开始的下标
+    wx.setStorage({ key: 'end', data: 13 }) // 测试结束的下标
+    wx.setStorage({ key: 'direction', data: 1 }) // 智力值是顺序(1)还是倒序(0)
   }
+  // toogleEyesightHandle已被使用
 })
