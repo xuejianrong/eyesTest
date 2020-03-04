@@ -14,7 +14,9 @@
       <image class="tool-icon"
              bindtap="toogleDirection"
              src="/images/tool/direction.png"></image>
-      <image class="tool-icon" src="/images/tool/people.png"></image>
+      <image class="tool-icon"
+             bindtap="toogleType"
+             src="/images/tool/people.png"></image>
     </van-transition>
   </view>
 </view>

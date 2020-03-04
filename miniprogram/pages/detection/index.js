@@ -15,6 +15,7 @@ Page({
     list: [],
     answer: 'up', // 当前图案的答案
     mic: true,
+    picType: 'E'
   },
 
   /**
@@ -29,6 +30,24 @@ Page({
       key: 'mic',
       success: function(res) {
         _this.setData({ mic: res.data })
+      },
+    })
+    wx.getStorage({
+      key: 'start',
+      success: function(res) {
+        _this.setData({ start: res.data, current: res.data })
+      },
+    })
+    wx.getStorage({
+      key: 'end',
+      success: function(res) {
+        _this.setData({ end: res.data })
+      },
+    })
+    wx.getStorage({
+      key: 'picType',
+      success: function(res) {
+        _this.setData({ picType: res.data })
       },
     })
     // 初次加载，随机一个答案
@@ -52,6 +71,10 @@ Page({
       _this.setData({ start, end, current: start, right: 0, wrong: 0 })
       _this.random()
     }
+    app.tooglePicTypeHandle = () => {
+      const picType = _this.data.picType === 'E' ? '儿童' : 'E'
+      _this.setData({ picType })
+    }
   },
 
   /**
@@ -59,13 +82,14 @@ Page({
    */
   onHide: function () {
     app.toogleEyesightHandle = undefined
+    app.tooglePicTypeHandle = undefined
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    app.toogleEyesightHandle
+    
   },
   random (isFirst) {
     let num = parseInt(Math.random() * 4) // 0|1|2|3
@@ -96,7 +120,6 @@ Page({
       // 回答正确
       let right = this.data.right + 1
       if (right < 3) {
-        console.log(right)
         this.setData({ right })
         this.random()
       } else if (this.data.current < this.data.end) {
@@ -147,6 +170,22 @@ Page({
       data: mic,
     })
   },
+  increase () {
+    // increase: 增大 是下标缩小的意思，因为下标越小，图片越大
+    const { start, end, current } = this.data
+    if (start <= end && current === start) return
+    if (start > end && current === end) return
+    this.setData({ current: current - 1 })
+  },
+  shrink () {
+    // shrink 缩小 与increase相反
+    const { start, end, current } = this.data
+    if (start <= end && current === end) return
+    if (start > end && current === start) return
+    this.setData({ current: current + 1 })
+  },
+  backout () {},
+  setting () {},
 
   // 模拟操作
   answerUp () {

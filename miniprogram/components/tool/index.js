@@ -19,7 +19,8 @@ Component({
     mic: true,
     direction: 1,
     start: 0,
-    end: 13
+    end: 13,
+    picType: 'E'
   },
 
   /**
@@ -57,9 +58,17 @@ Component({
       })
       wx.getStorage({
         key: 'end',
-        success: function(res) {
+        success: function (res) {
           _this.setData({
             end: res.data
+          })
+        },
+      })
+      wx.getStorage({
+        key: 'picType',
+        success: function (res) {
+          _this.setData({
+            picType: res.data
           })
         },
       })
@@ -91,6 +100,19 @@ Component({
         duration: 3000
       })
       app.toogleEyesightHandle && app.toogleEyesightHandle()
+    },
+    toogleType() {
+      let picType = this.data.picType === 'E' ? '儿童' : 'E'
+      this.setData({ picType })
+      wx.setStorage({ key: 'picType', data: picType })
+      // 默认模式下才弹toast
+      this.properties.type === '1' && wx.showToast({
+        title: '已切换成' + picType + '视力表',
+        icon: 'none',
+        mask: true,
+        duration: 3000
+      })
+      app.tooglePicTypeHandle && app.tooglePicTypeHandle()
     }
   }
 })

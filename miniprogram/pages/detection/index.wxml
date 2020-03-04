@@ -14,26 +14,26 @@
     <image wx:else bindtap="toogleMic" src="/images/tool/mic_close.png"></image>语音
   </view>
   <view class="det-bar-item">
-    <image src="/images/tool/add.png"></image>增大
+    <image bindtap="increase" src="/images/tool/add.png"></image>增大
   </view>
   <view class="det-bar-item">
-    <image src="/images/tool/down.png"></image>缩小
+    <image bindtap="shrink" src="/images/tool/down.png"></image>缩小
   </view>
   <view class="det-bar-item">
-    <image src="/images/tool/backout.png"></image>撤销
+    <image bindtap="backout" src="/images/tool/backout.png"></image>撤销
   </view>
   <view class="det-bar-item">
-    <image src="/images/tool/setting.png"></image>设置
+    <image bindtap="setting" src="/images/tool/setting.png"></image>设置
   </view>
 </view>
 
 <view class="det-main">
-  <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}.png"></image>
+  <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}{{ picType === 'E' ? '' : '_2' }}.png"></image>
   <!-- 模拟设备按钮 -->
-  <button class="btn btn-up" bindtap="answerUp">上</button>
-  <button class="btn btn-down" bindtap="answerDwon">下</button>
-  <button class="btn btn-left" bindtap="answerLeft">左</button>
-  <button class="btn btn-right" bindtap="answerRight">右</button>
+  <button class="btn btn-up" bindtap="answerUp">上(房子)</button>
+  <button class="btn btn-down" bindtap="answerDwon">下(心形)</button>
+  <button class="btn btn-left" bindtap="answerLeft">左(正方形)</button>
+  <button class="btn btn-right" bindtap="answerRight">右(圆形)</button>
 </view>
 
 <tool type="2"></tool>

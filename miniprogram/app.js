@@ -40,6 +40,8 @@ App({
     wx.setStorage({ key: 'start', data: 0 }) // 测试开始的下标
     wx.setStorage({ key: 'end', data: 13 }) // 测试结束的下标
     wx.setStorage({ key: 'direction', data: 1 }) // 智力值是顺序(1)还是倒序(0)
+    wx.setStorage({ key: 'picType', data: 'E' }) // E、儿童
   }
   // toogleEyesightHandle已被使用
+  // tooglePicTypeHandle已被使用
 })
