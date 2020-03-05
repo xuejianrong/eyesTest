@@ -92,3 +92,120 @@
   top: 350rpx;
   right: 0;
 }
+.setting-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+}
+.setting-mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .1);
+}
+.setting-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 50rpx 40rpx;
+}
+.setting-content__bar {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.setting-content__item {
+  width: 134rpx;
+  color: #bbb;
+  font-size: 24rpx;
+}
+.setting-content__item image {
+  width: 80rpx;
+  height: 80rpx;
+}
+.setting-content__item .active {
+  color: #000;
+}
+.setting-content__1 {
+  padding: 10rpx 180rpx 60rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.setting-content__1 image {
+  width: 110rpx;
+  height: 110rpx;
+}
+.setting-content__2 {
+  padding: 10rpx 0 60rpx;
+}
+.setting-content__2 .item {
+  width: 110rpx;
+  height: 110rpx;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #018fff;
+  color: #fff;
+  text-align: center;
+  line-height: 110rpx;
+}
+.setting-content__3 {
+  padding-bottom: 60rpx;
+}
+.setting-content__3 .title {
+  padding-bottom: 10rpx;
+}
+.setting-content__3 .title text {
+  color: #018fff;
+}
+.setting-content__3 slider {
+  position: relative;
+  padding: 0 40rpx;
+  font-size: 26rpx;
+  color: #bbb;
+}
+.setting-content__3 slider::before {
+  position: absolute;
+  content: '4.0';
+  left: -35rpx;
+  top: 0;
+}
+.setting-content__3 slider::after {
+  position: absolute;
+  content: '5.3';
+  top: 0;
+  right: -35rpx;
+}
+.setting-content__4 slider::before {
+  content: '3';
+}
+.setting-content__4 slider::after {
+  content: '10';
+}
+.setting-content__5 slider::before {
+  content: '';
+}
+.setting-content__5 slider::after {
+  content: '';
+}
+.setting-content__5 .img {
+  position: absolute;
+  top: 0;
+  width: 40rpx;
+  height: 40rpx;
+}
+.setting-content__5 .img1 {
+  left: -35rpx;
+}
+.setting-content__5 .img2 {
+  right: -35rpx;
+}

@@ -41,6 +41,8 @@ App({
     wx.setStorage({ key: 'end', data: 13 }) // 测试结束的下标
     wx.setStorage({ key: 'direction', data: 1 }) // 智力值是顺序(1)还是倒序(0)
     wx.setStorage({ key: 'picType', data: 'E' }) // E、儿童
+    wx.setStorage({ key: 'eyesGlasses', data: '1' }) // 1 裸眼， 2 眼镜
+    wx.setStorage({ key: 'counter', data: 5 }) // 视标数量(3-10) 正确几次通过：Math.floor((counter / 2) + 1)
   }
   // toogleEyesightHandle已被使用
   // tooglePicTypeHandle已被使用

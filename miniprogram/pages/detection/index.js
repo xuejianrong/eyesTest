@@ -15,7 +15,20 @@ Page({
     list: [],
     answer: 'up', // 当前图案的答案
     mic: true,
-    picType: 'E'
+    picType: 'E',
+    settingShow: false,
+    settingIconState: '1', // 1/2/3/4/5
+    eyesGlasses: '1', // 1 裸眼/2 眼镜
+    iconState2: '2.5m',
+    // iconState3: 就是start和end
+    iconState4: 3,
+    iconState5: 0.8,
+    startValue: '4.0', // 用于标尺开始值的显示
+    endValue: '5.3', // 用于标尺结束值的显示
+    counter: 5, // 视标数量
+    counterValue: 3, // 视标数量对应的正确通过数
+    oldScreenBrightness: 0.8,
+    screenBrightness: 0.8
   },
 
   /**
@@ -50,6 +63,18 @@ Page({
         _this.setData({ picType: res.data })
       },
     })
+    wx.getStorage({
+      key: 'eyesGlasses',
+      success: function(res) {
+        _this.setData({ eyesGlasses: res.data })
+      },
+    })
+    wx.getStorage({
+      key: 'counter',
+      success: function(res) {
+        _this.setData({ counter: res.data, counterValue: Math.floor((res.data / 2) + 1) })
+      },
+    })
     // 初次加载，随机一个答案
     this.random(true)
   },
@@ -58,6 +83,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+
   },
 
   /**
@@ -75,21 +101,38 @@ Page({
       const picType = _this.data.picType === 'E' ? '儿童' : 'E'
       _this.setData({ picType })
     }
+    // 保持屏幕常亮
+    wx.setKeepScreenOn({ keepScreenOn: true })
+    // 获取屏幕亮度，不足于0.8则调至0.8，否则不变
+    wx.getScreenBrightness({
+      success: function (res) {
+        _this.setData({ oldScreenBrightness: res.value })
+        if (res.value >= 0.8) {
+          _this.setData({ screenBrightness: res.value })
+          return
+        }
+        _this.setData({ screenBrightness: 0.8 })
+        wx.setScreenBrightness({ value: 0.8 })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    app.toogleEyesightHandle = undefined
-    app.tooglePicTypeHandle = undefined
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+    app.toogleEyesightHandle = undefined
+    app.tooglePicTypeHandle = undefined
+    // 取消常亮
+    wx.setKeepScreenOn({ keepScreenOn: false })
+    // 恢复之前的亮度
+    wx.setScreenBrightness({ value: this.data.oldScreenBrightness })
   },
   random (isFirst) {
     let num = parseInt(Math.random() * 4) // 0|1|2|3
@@ -185,7 +228,48 @@ Page({
     this.setData({ current: current + 1 })
   },
   backout () {},
-  setting () {},
+  showSetting () {
+    this.setData({ settingShow: true })
+  },
+  hideSetting () {
+    this.setData({ settingShow: false })
+  },
+  toogleSettingState (e) {
+    this.setData({ settingIconState: e.currentTarget.dataset.state })
+  },
+  eyesGlassesHandle (e) {
+    this.setData({ eyesGlasses: e.currentTarget.dataset.v })
+  },
+  startChangeHandle (e) {
+    let { value } = e.detail
+    let startValue = (value).toFixed(1)
+    let start = parseInt(((value - 4) * 10).toFixed(1))
+    this.setData({ start, startValue })
+    wx.setStorage({ key: 'start', data: start })
+    let direction = start <= this.data.end ? 1 : 0
+    wx.setStorage({ key: 'direction', data: direction })
+  },
+  endChangeHandle (e) {
+    let { value } = e.detail
+    let endValue = (value).toFixed(1)
+    let end = parseInt(((value - 4) * 10).toFixed(1))
+    this.setData({ end, endValue })
+    wx.setStorage({ key: 'end', data: end })
+    let direction = this.data.start <= end ? 1 : 0
+    wx.setStorage({ key: 'direction', data: direction })
+  },
+  counterChangeHandle (e) {
+    let { value } = e.detail
+    this.setData({ counter: value, counterValue: Math.floor((value / 2) + 1) })
+    wx.setStorage({ key: 'counter', data: value })
+  },
+  brightnessChangeHandle (e) {
+    let { value } = e.detail
+    this.setData({ screenBrightness: value })
+    wx.setScreenBrightness({
+      value
+    })
+  },
 
   // 模拟操作
   answerUp () {
