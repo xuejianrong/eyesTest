@@ -1,5 +1,5 @@
 <!--miniprogram/pages/index/index.wxml-->
-<head-swiper list="{{ users }}"></head-swiper>
+<head-swiper list="{{ users }}" change="{{ swiperChange }}"></head-swiper>
 <view class="prevtime">最近检测时间: {{ currentUser.prevTime }}</view>
 <view class="data">
   <view class="data-item">

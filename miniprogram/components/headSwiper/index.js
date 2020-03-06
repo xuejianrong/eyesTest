@@ -48,6 +48,7 @@ Component({
       this.setData({
         current: detail.current
       })
+      app.swiperChange && app.swiperChange(detail.current)
     }
   }
 })
