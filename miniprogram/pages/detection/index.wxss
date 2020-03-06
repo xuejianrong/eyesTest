@@ -73,16 +73,21 @@
 }
 .btn {
   position: absolute;
-  width: 180rpx;
+  width: 150rpx;
+  height: 150rpx;
   font-size: 24rpx;
+  border-radius: 50%;
+  line-height: 150rpx;
+  background: #bbb;
+  color: #fff;
 }
 .btn-up {
   top: 80rpx;
-  left: 285rpx;
+  left: 300rpx;
 }
 .btn-down {
   bottom: 80rpx;
-  left: 285rpx;
+  left: 300rpx;
 }
 .btn-left {
   top: 350rpx;

@@ -1,5 +1,6 @@
 // miniprogram/pages/detection/index.js
 let app = getApp()
+const api = require('../../apis/index.js')
 
 const innerAudioContext_start = wx.createInnerAudioContext()
 innerAudioContext_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/start.mp3'
@@ -109,6 +110,7 @@ Page({
       innerAudioContext_start.play()
     } else {
       innerAudioContext_right_start.play()
+
     }
   },
 
@@ -329,6 +331,25 @@ Page({
             })
           }
         })
+
+        // 测左眼，添加一条测试数据
+        if (_this.data.type === 'left') {
+          api.addRecord(result).then(res => {
+            wx.setStorage({
+              key: 'resultId',
+              data: res._id
+            })
+          })
+        }
+        // 测右眼，更新此条数据
+        if (_this.data.type === 'right') {
+          wx.getStorage({
+            key: 'resultId',
+            success: function (res) {
+              api.updateRecord(res.data, result)
+            }
+          })
+        }
       },
       fail: function (err) {
         console.log(err)

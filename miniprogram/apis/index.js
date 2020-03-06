@@ -22,10 +22,13 @@ export const addUser = data => db.collection('users').add({
 })
 
 // 更新用户数据
-export const updateUser = (id, data) => db.collection('users').doc(id).update({
-  data
-})
+export const updateUser = (id, data) => db.collection('users').doc(id).update({ data })
 
 // 删除用户
 export const deleteUser = id => db.collection('users').doc(id).remove()
 
+// 新增测试记录
+export const addRecord = data => db.collection('records').add({ data })
+
+// 更新用户数据
+export const updateRecord = (id, data) => db.collection('records').doc(id).update({ data })
