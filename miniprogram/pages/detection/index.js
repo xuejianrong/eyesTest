@@ -28,7 +28,16 @@ Page({
     counter: 5, // 视标数量
     counterValue: 3, // 视标数量对应的正确通过数
     oldScreenBrightness: 0.8,
-    screenBrightness: 0.8
+    screenBrightness: 0.8,
+    resultList: [], // 测试结果列表
+    // resultList数据格式：
+    /*
+    {
+      index: 0, // 该视值下标
+      right: 0, // 正确个数
+      wrong: 0, // 错误个数
+    }
+    */
   },
 
   /**
@@ -159,50 +168,119 @@ Page({
     })
   },
   response (answer) {
+    let offset = this.data.end >= this.data.start ? 1 : -1
+    let next = this.data.current + offset // 下一个需要测试的下标
+    let prev = this.data.current - offset // 上一个需要测试的下标
+    let nextItem = this.data.resultList.find(ele => ele.index === next)
+    let prevItem = this.data.resultList.find(ele => ele.index === prev)
     if (answer === this.data.answer) {
       // 回答正确
       let right = this.data.right + 1
-      if (right < 3) {
+      // 当前视值的测试未结束
+      if (right < this.data.counterValue) {
         this.setData({ right })
         this.random()
-      } else if (this.data.current < this.data.end) {
-        // right值为3 且未结束
-        this.setData({
-          current: this.data.current + 1
-        })
-        this.next()
-      } else {
-        // 全部都通过了
-        this.over(true)
+        return
+      }
+      // 一下的情况都是 right === this.data.counterValue
+      // 通过当前视值 且可能未结束 （如果是使用增大和缩小按钮跳着测可能会结束）
+      /**
+       * 需要结束的情况
+       */
+      // 倒序，第一个就通过了最大的视力值，over
+      if (offset < 0 && this.data.current === this.data.start) {
+        this.over(this.data.current, right, this.data.wrong)
+        return
+      }
+      // 顺序，通过了最后一个
+      if (offset > 0 && this.data.current === this.data.end) {
+        this.over(this.data.current, right, this.data.wrong)
+        return
+      }
+      // 顺序，下一个测过了（一定是不通过），over
+      if (offset > 0 && nextItem) {
+        this.over(this.data.current, right, this.data.wrong)
+        return
+      }
+      // 倒序，上一个测过了（一定是不通过），over
+      if (offset < 0 && prevItem) {
+        this.over(this.data.current, right, this.data.wrong)
+        return
+      }
+      /**
+       * 进入下一轮测试的情况
+       */
+      // 顺序，下一个没测
+      if (offset > 0 && !nextItem) {
+        this.next(next, right, this.data.wrong)
+      }
+      // 倒序，上一个没测
+      if (offset < 0 && !prevItem) {
+        this.next(prev, right, this.data.wrong)
       }
     } else {
       // 回答错误
       let wrong = this.data.wrong + 1
-      if (wrong < 3) {
+      // 当前视值的测试未结束
+      if (wrong < this.data.counterValue) {
         this.setData({ wrong })
         this.random()
-      } else {
-        this.over()
+        return
+      }
+      // 一下的情况都是 wrong === this.data.counterValue
+      // 不通过当前视值 且可能未结束 （如果是使用增大和缩小按钮跳着测可能会结束）
+      /**
+       * 需要结束的情况
+       */
+      // 顺序，第一个就不通过了, over
+      if (offset > 0 && this.data.current === this.data.start) {
+        this.over(this.data.current, this.data.right, wrong)
+        return
+      }
+      // 倒序，最后一个不通过，over
+      if (offset < 0 && this.data.current === this.data.end) {
+        this.over(this.data.current, this.data.right, wrong)
+        return
+      }
+      // 倒序，下一个测过了（一定是通过的）,over
+      if (offset < 0 && nextItem) {
+        this.over(next, this.data.right, wrong)
+        return
+      }
+      // 顺序，上一个测过了（一定是通过的），over
+      if (offset > 0 && prevItem) {
+        this.over(prev, this.data.right, wrong)
+        return
+      }
+      /**
+       * 进入下一轮测试的情况
+       */
+      // 倒序，下一个没测
+      if (offset < 0 && !nextItem) {
+        this.next(next, this.data.right, wrong)
+        return
+      }
+      // 顺序，上一个没测
+      if (offset > 0 && !prevItem) {
+        this.next(prev, this.data.right, wrong)
+        return
       }
     }
   },
   // 下一题
-  next () {
+  next (nextIndex, right, wrong) {
+    this.data.resultList.push({ index: this.data.current, right, wrong })
     this.setData({
+      current: nextIndex,
       right: 0,
       wrong: 0
     })
     this.random()
   },
   // 测试结束
-  over (isPass) {
-    if (isPass) {
-      console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[this.data.current].value)
-    } else {
-      // 如果一个都没通过，结果取测试的开始下标
-      let result = this.data.current > this.data.start ? this.data.current - 1 : this.data.current
-      console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[result].value)
-    }
+  over (index, right, wrong) {
+    this.data.resultList.push({ index: this.data.current, right, wrong })
+    console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[index].value)
     // TODO 跳转值结果页
   },
   toogleMic () {

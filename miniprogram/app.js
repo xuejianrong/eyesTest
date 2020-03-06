@@ -37,9 +37,9 @@ App({
 
     // 初始化storage
     wx.setStorage({ key: 'mic', data: true }) // mic的开关
-    wx.setStorage({ key: 'start', data: 0 }) // 测试开始的下标
-    wx.setStorage({ key: 'end', data: 13 }) // 测试结束的下标
-    wx.setStorage({ key: 'direction', data: 1 }) // 智力值是顺序(1)还是倒序(0)
+    wx.setStorage({ key: 'start', data: 13 }) // 测试开始的下标
+    wx.setStorage({ key: 'end', data: 0 }) // 测试结束的下标
+    wx.setStorage({ key: 'direction', data: 0 }) // 智力值是顺序(1)还是倒序(0)
     wx.setStorage({ key: 'picType', data: 'E' }) // E、儿童
     wx.setStorage({ key: 'eyesGlasses', data: '1' }) // 1 裸眼， 2 眼镜
     wx.setStorage({ key: 'counter', data: 5 }) // 视标数量(3-10) 正确几次通过：Math.floor((counter / 2) + 1)

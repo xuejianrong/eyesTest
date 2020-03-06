@@ -83,7 +83,7 @@ Component({
     },
     toogleDirection () {
       let direction = this.data.direction ? 0 : 1
-      this.setData({ direction })
+      this.setData({ direction, show: false })
       wx.setStorage({
         key: 'direction',
         data: direction
@@ -97,20 +97,20 @@ Component({
         title: '视力值已切换从' + app.globalData.eyesightList[start].value + '开始',
         icon: 'none',
         mask: true,
-        duration: 3000
+        duration: 2000
       })
       app.toogleEyesightHandle && app.toogleEyesightHandle()
     },
     toogleType() {
       let picType = this.data.picType === 'E' ? '儿童' : 'E'
-      this.setData({ picType })
+      this.setData({ picType, show: false })
       wx.setStorage({ key: 'picType', data: picType })
       // 默认模式下才弹toast
       this.properties.type === '1' && wx.showToast({
         title: '已切换成' + picType + '视力表',
         icon: 'none',
         mask: true,
-        duration: 3000
+        duration: 2000
       })
       app.tooglePicTypeHandle && app.tooglePicTypeHandle()
     }
