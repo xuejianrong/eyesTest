@@ -1,5 +1,13 @@
 // miniprogram/pages/detection/index.js
 let app = getApp()
+
+const innerAudioContext_start = wx.createInnerAudioContext()
+innerAudioContext_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/start.mp3'
+const innerAudioContext_right_start = wx.createInnerAudioContext()
+innerAudioContext_right_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/right-start.mp3'
+const innerAudioContext_over = wx.createInnerAudioContext()
+innerAudioContext_over.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/over.mp3'
+
 Page({
 
   /**
@@ -19,7 +27,7 @@ Page({
     settingShow: false,
     settingIconState: '1', // 1/2/3/4/5
     eyesGlasses: '1', // 1 裸眼/2 眼镜
-    iconState2: '2.5m',
+    distance: '2.5m',
     // iconState3: 就是start和end
     iconState4: 3,
     iconState5: 0.8,
@@ -36,6 +44,8 @@ Page({
       index: 0, // 该视值下标
       right: 0, // 正确个数
       wrong: 0, // 错误个数
+      v1: '4.0',
+      v2: '0.1'
     }
     */
   },
@@ -45,8 +55,11 @@ Page({
    */
   onLoad: function (options) {
     let _this = this
-    this.setData({
-      list: app.globalData.eyesightList
+    this.setData({ type: options.type })
+    this.setData({ list: app.globalData.eyesightList })
+    wx.setInnerAudioOption({
+      mixWithOther: false, // 不与其他音频混播，终止其他应用或微信内的音乐
+      obeyMuteSwitch: false, // (仅在 iOS 生效）是否遵循静音开关，设置为 false 之后，即使是在静音模式下，也能播放声音
     })
     wx.getStorage({
       key: 'mic',
@@ -92,7 +105,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    if (this.data.type === 'left') {
+      innerAudioContext_start.play()
+    } else {
+      innerAudioContext_right_start.play()
+    }
   },
 
   /**
@@ -269,7 +286,8 @@ Page({
   },
   // 下一题
   next (nextIndex, right, wrong) {
-    this.data.resultList.push({ index: this.data.current, right, wrong })
+    const item = app.globalData.eyesightList[this.data.current]
+    this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     this.setData({
       current: nextIndex,
       right: 0,
@@ -279,8 +297,43 @@ Page({
   },
   // 测试结束
   over (index, right, wrong) {
-    this.data.resultList.push({ index: this.data.current, right, wrong })
+    let _this = this
+    const item = app.globalData.eyesightList[this.data.current]
+    this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[index].value)
+    this.data.type === 'right' && innerAudioContext_over.play()
+    wx.getStorage({
+      key: 'result',
+      success: function (res) {
+        let result = res.data || {}
+        result[_this.data.type] = {
+          // list: _this.data.resultList.sort((a, b) => a.index - b.index),
+          list: _this.data.resultList.reverse(),
+          start: _this.data.start,
+          end: _this.data.end,
+          distance: _this.data.distance,
+          counter: _this.data.counter,
+          counterValue: _this.data.counterValue,
+          screenBrightness: _this.data.screenBrightness,
+          eyesGlasses: _this.data.eyesGlasses,
+          v1: _this.data.list[index].v1,
+          v2: _this.data.list[index].v2,
+        }
+        result.date = new Date()
+        wx.setStorage({
+          key: 'result',
+          data: result,
+          success: function () {
+            wx.redirectTo({
+              url: '../result/index',
+            })
+          }
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
     // TODO 跳转值结果页
   },
   toogleMic () {

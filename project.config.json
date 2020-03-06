@@ -70,6 +70,12 @@
 					"pathName": "pages/detection/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "result",
+					"pathName": "pages/result/index",
+					"scene": null
 				}
 			]
 		}

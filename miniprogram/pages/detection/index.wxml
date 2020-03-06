@@ -3,7 +3,7 @@
   <view class="det-top__2">正确：<text class="green">{{ right }}</text> 错误：<text class="red">{{ wrong }}</text></view>
   <view class="det-top__3">
     <view class="left {{ type === 'left' ? 'active' : '' }}">左眼</view>
-    <view class="center">{{ eyesGlasses === '1' ? '裸眼' : '眼镜' }} {{ iconState2 }}</view>
+    <view class="center">{{ eyesGlasses === '1' ? '裸眼' : '眼镜' }} {{ distance }}</view>
     <view class="right {{ type === 'right' ? 'active' : '' }}">右眼</view>
   </view>
 </view>
@@ -46,7 +46,7 @@
       <image bindtap="eyesGlassesHandle" data-v="2" src="/images/detection/icon1__2_{{ eyesGlasses === '2' ? '1' : '2' }}.png"></image>
     </view>
     <view wx:if="{{ settingIconState === '2' }}" class="setting-content__2">
-      <view class="item">{{ iconState2 }}</view>
+      <view class="item">{{ distance }}</view>
     </view>
     <view wx:if="{{ settingIconState === '3' }}" class="setting-content__3">
       <view class="title">开始视标 <text>{{ startValue }}</text></view>

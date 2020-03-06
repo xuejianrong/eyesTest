@@ -1,0 +1,54 @@
+<view class="result">
+  <view class="result-left item">
+    <view class="text1">左眼视力</view>
+    <block wx:if="{{ left.v1 }}">
+      <view class="text2">{{ left.v1 }}</view>
+      <view class="text3">{{ left.v2 }}</view>
+    </block>
+    <block wx:else>
+      <view class="text4">检测</view>
+      <view class="text4">未完成</view>
+    </block>
+  </view>
+  <view class="result-right item">
+    <view class="text1">右眼视力</view>
+    <block wx:if="{{ right.v1 }}">
+      <view class="text2">{{ right.v1 }}</view>
+      <view class="text3">{{ right.v2 }}</view>
+    </block>
+    <block wx:else>
+      <view class="text4">检测</view>
+      <view class="text4">未完成</view>
+    </block>
+  </view>
+</view>
+
+<view class="btn-area">
+  <button class="btn btn-main" bindtap="startRight">继续检测右眼</button>
+  <button class="btn" bindtap="endTest">结束检测</button>
+</view>
+
+<view class="detail">
+  <view class="detail-left ceil">
+    <view class="detai-title">左眼详情</view>
+    <view class="detai-list">
+      <view class="item" wx:for="{{ leftList }}" wx:key="index">
+        <view class="index">{{ index + 1 }}</view>
+        <view class="text5">正确: <text class="color1">{{ item.right }}</text> 错误: <text class="color2">{{ item.wrong }}</text></view>
+        <view class="text6"><text class="text7 {{ item.right > item.wrong ? 'color1' : 'color2' }}">{{ item.v1 }}</text> / {{ item.v2 }}</view>
+      </view>
+      <view class="item nothing" wx:if="{{ leftList.length === 0 }}">未检测</view>
+    </view>
+  </view>
+  <view class="detail-right ceil">
+    <view class="detai-title">右眼详情</view>
+    <view class="detai-list">
+      <view class="item" wx:for="{{ rightList }}" wx:key="index">
+        <view class="index">{{ index + 1 }}</view>
+        <view class="text5">正确: <text class="color1">{{ item.right }}</text> 错误: <text class="color2">{{ item.wrong }}</text></view>
+        <view class="text6"><text class="text7 {{ item.right > item.wrong ? 'color1' : 'color2' }}">{{ item.v1 }}</text> / {{ item.v2 }}</view>
+      </view>
+      <view class="item nothing" wx:if="{{ rightList.length === 0 }}">未检测</view>
+    </view>
+  </view>
+</view>

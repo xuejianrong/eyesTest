@@ -5,7 +5,8 @@
     "components/headSwiper/index",
     "pages/editUser/index",
     "components/tool/index",
-    "pages/detection/index"
+    "pages/detection/index",
+    "pages/result/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

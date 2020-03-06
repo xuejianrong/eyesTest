@@ -112,7 +112,7 @@ Page({
   },
   start () {
     wx.navigateTo({
-      url: '../detection/index',
+      url: '../detection/index?type=left',
     })
   }
 })
