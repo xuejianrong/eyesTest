@@ -320,7 +320,9 @@ Page({
           v1: _this.data.list[index].v1,
           v2: _this.data.list[index].v2,
         }
-        result.date = new Date()
+        let date = new Date()
+        result.date = date
+        result.timestamp = date.getTime()
         wx.setStorage({
           key: 'result',
           data: result,
