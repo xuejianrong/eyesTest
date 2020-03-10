@@ -1,16 +1,18 @@
 <!--miniprogram/pages/index/index.wxml-->
 <head-swiper list="{{ users }}" change="{{ swiperChange }}"></head-swiper>
-<view class="prevtime">最近检测时间: {{ currentUser.prevTime }}</view>
+<view class="prevtime">最近检测时间: {{ date }}</view>
 <view class="data">
   <view class="data-item">
-    <text class="text1">5.0</text>
-    <text class="text2">/1.2</text>
+    <text class="text1" wx:if="{{ left_v1 }}">{{ left_v1 }}</text>
+    <text class="text1" wx:else>-</text>
+    <text class="text2" wx:if="{{ left_v2 }}">/{{ left_v2 }}</text>
     <view class="text3">左眼视力</view>
   </view>
   <view class="data-item">
-    <text class="text1">5.0</text>
-    <text class="text2">/1.2</text>
-    <view class="text3">右眼视力</view> 
+    <text class="text1" wx:if="{{ right_v1 }}">{{ right_v1 }}</text>
+    <text class="text1" wx:else>-</text>
+    <text class="text2" wx:if="{{ right_v2 }}">/{{ right_v2 }}</text>
+    <view class="text3">右眼视力</view>
   </view>
 </view>
 

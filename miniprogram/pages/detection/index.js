@@ -21,7 +21,7 @@ Page({
     current: 0, // list的下标 当前测试到哪个视标
     right: 0, // 当前视标正确个数
     wrong: 0, // 当前视标错误个数
-    list: [],
+    list: [], // 所有势力值的数据(固定的)
     answer: 'up', // 当前图案的答案
     mic: true,
     picType: 'E',
@@ -110,7 +110,6 @@ Page({
       innerAudioContext_start.play()
     } else {
       innerAudioContext_right_start.play()
-
     }
   },
 
@@ -379,12 +378,36 @@ Page({
     if (start > end && current === start) return
     this.setData({ current: current + 1 })
   },
-  backout () {},
+  backout () {
+    if (this.data.resultList.length === 0) return
+    let curr = this.data.resultList[this.data.resultList.length - 1]
+    this.data.resultList.pop()
+    this.setData({ current: curr.index })
+    this.random()
+  },
   showSetting () {
     this.setData({ settingShow: true })
   },
   hideSetting () {
+    let _this = this
     this.setData({ settingShow: false })
+    wx.showModal({
+      title: '提示',
+      content: '是否重新开始测试',
+      success: function (res) {
+        if (res.confirm) {
+          _this.resetting()
+        }
+      }
+    })
+  },
+  resetting () {
+    this.setData({
+      resultList: [],
+      current: this.data.start,
+      right: 0,
+      wrong: 0
+    })
   },
   toogleSettingState (e) {
     this.setData({ settingIconState: e.currentTarget.dataset.state })

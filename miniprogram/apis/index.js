@@ -34,4 +34,4 @@ export const addRecord = data => db.collection('records').add({ data })
 export const updateRecord = (id, data) => db.collection('records').doc(id).update({ data })
 
 // 查询测试记录
-export const getRecord = data => db.collection('records').limit(1).get()
+export const getRecord = data => db.collection('records').orderBy('date', 'desc').limit(1).get()

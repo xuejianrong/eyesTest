@@ -1,5 +1,6 @@
 const app = getApp()
 const api = require('../../apis/index.js')
+const util = require('../../utils/utils.js')
 Page({
 
   /**
@@ -8,7 +9,12 @@ Page({
   data: {
     users: [],
     currentIndex: 0,
-    currentUser: {}
+    currentUser: {},
+    left_v1: '', 
+    left_v2: '',
+    date: '',
+    right_v1: '', 
+    right_v2: '' 
   },
 
   /**
@@ -70,6 +76,10 @@ Page({
       currentIndex: app.globalData.currentIndex,
       currentUser: app.globalData.currentUser
     })
+    // 如果存在用户数据，则重新拉取最近测试记录
+    if (this.data.currentUser && this.data.currentUser._id) {
+      this.setUsers(app.globalData.users)
+    }
   },
 
   /**
@@ -110,8 +120,25 @@ Page({
     app.globalData.users = users
     app.globalData.currentUser = users[app.globalData.currentIndex]
     this.setData({
-      users: users
+      users: users,
+      currentUser: users[app.globalData.currentIndex]
     })
+    api.getRecord()
+      .then(res => {
+        const { data } = res
+        if (data.length > 0) {
+          const record = data[0]
+          let left = record.left || {}
+          let right = record.right || {}
+          this.setData({
+            left_v1: left.v1, 
+            left_v2: left.v2,
+            date: util.dateFormat(record.date, 'yyyy-MM-dd hh:mm'),
+            right_v1: right.v1,
+            right_v2: right.v2
+          })
+        }
+      })
   },
   start () {
     wx.navigateTo({
