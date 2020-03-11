@@ -64,8 +64,15 @@ Page({
    */
   onReady: function () {
     app.swiperChange = curr => {
-      console.log(curr)
-      console.log(this.data.currentIndex)
+      if (curr > app.globalData.users.length - 1) return
+      app.globalData.currentIndex = curr
+      app.globalData.currentUser = app.globalData.users[curr]
+      this.setData({
+        users: app.globalData.users,
+        currentIndex: curr,
+        currentUser: app.globalData.currentUser
+      })
+      this.setUsers(app.globalData.users)
     }
   },
 
@@ -140,6 +147,16 @@ Page({
             right_v1: right.v1,
             right_v2: right.v2,
             right_plus: right.list && right.list[0].right > 0
+          })
+        } else {
+          this.setData({
+            left_v1: '', 
+            left_v2: '',
+            left_plus: false,
+            date: '',
+            right_v1: '', 
+            right_v2: '',
+            right_plus: false,
           })
         }
       })
