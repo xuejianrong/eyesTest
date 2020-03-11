@@ -1,2 +1,39 @@
-<!--miniprogram/pages/doc/doc.wxml-->
-<text>miniprogram/pages/doc/doc.wxml</text>
+<view class="doc-top">
+  <view class="doc-top__avatar">
+    <image src="{{ user.avatar || '/images/headSwiper/user.png' }}" ></image>
+  </view>
+  <view class="doc-top__right">
+    <view class="doc-top__name">{{ user.name }}</view>
+    <view class="doc-top__birth">出生日期 {{ user.birth }}</view>
+  </view>
+  <view class="doc-top__btn" bindtap="toogleChart">
+    <van-icon wx:if="{{ showChart }}" name="arrow-up" />
+    <van-icon wx:else name="bar-chart-o" />
+  </view>
+</view>
+
+<view class="doc-btn-start" wx:if="{{ records.length === 0 && !loading }}">开始测试</view>
+
+<view class="doc-content" wx:if="{{ records.length > 0 && !loading }}">
+  <view class="date-item" wx:for="{{ records }}" wx:key="index">
+    <view class="date-item__title">{{ item.dateStr }}</view>
+    <view class="record-item" wx:for="{{ item.list }}" wx:key="index">
+      <view class="record-item__left">
+        <van-icon name="eye" />
+        <view class="record-item__date">{{ item.dateStr2 }}</view>
+      </view>
+      <view class="record-item__right">
+        <view class="record-item__lefteye">
+          <view class="record-item__icon">左</view>
+          <view class="record-item__value" wx:if="{{ item.left }}">{{ item.left.v1  }}<text>/{{ item.left.v2 }}{{ item.left.right > 0 ? '+' : '' }}</text></view>
+          <view class="record-item__value" wx:else><text>-</text></view>
+        </view>
+        <view class="record-item__righteye">
+          <view class="record-item__icon">右</view>
+          <view class="record-item__value" wx:if="{{ item.right }}">{{ item.right.v1  }}<text>/{{ item.right.v2 }}{{ item.right.right > 0 ? '+' : '' }}</text></view>
+          <view class="record-item__value" wx:else><text>-</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

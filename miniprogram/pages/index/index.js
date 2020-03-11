@@ -123,7 +123,7 @@ Page({
       users: users,
       currentUser: users[app.globalData.currentIndex]
     })
-    api.getRecord()
+    api.getRecord({ uid: users[app.globalData.currentIndex]._id })
       .then(res => {
         const { data } = res
         if (data.length > 0) {

@@ -323,6 +323,7 @@ Page({
         let date = new Date()
         result.date = date
         result.timestamp = date.getTime()
+        result.uid = app.globalData.currentUser._id
         wx.setStorage({
           key: 'result',
           data: result,

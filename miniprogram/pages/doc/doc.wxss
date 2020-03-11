@@ -1,1 +1,133 @@
 /* miniprogram/pages/doc/doc.wxss */
+page {
+  box-sizing: border-box;
+}
+.doc-top {
+  position: relative;
+  width: 650rpx;
+  margin: 30rpx auto 0;
+  background: #018fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.doc-top__avatar {
+  font-size: 0;
+}
+.doc-top__avatar image {
+  width: 154rpx;
+  height: 154rpx;
+  border-radius: 50%;
+}
+.doc-top__right {
+  position: absolute;
+  left: 175rpx;
+  top: 20rpx;
+  width: 475rpx;
+  padding: 23rpx 41rpx;
+  box-sizing: border-box;
+}
+.doc-top__name {
+  color: #fff;
+  font-size: 30rpx;
+  line-height: 30rpx;
+}
+.doc-top__birth {
+  color: #fff;
+  font-size: 26rpx;
+  line-height: 26rpx;
+  margin-top: 43rpx;
+}
+.doc-top__btn {
+  position: absolute;
+  right: 41rpx;
+  bottom: 48rpx;
+  width: 46rpx;
+  height: 46rpx;
+  border: 3rpx solid #fff;
+  border-radius: 6rpx;
+  text-align: center;
+  color: #fff;
+  padding-top: 4rpx;
+  box-sizing: border-box;
+}
+.doc-btn-start {
+  position: fixed;
+  left: 160rpx;
+  top: calc(50% + 150rpx);
+  width: 430rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: #018fff;
+  border-radius: 46rpx;
+  font-size: 34rpx;
+  text-align: center;
+  color: #fff;
+}
+.doc-btn-start:active {
+  background: #0191ffad;
+}
+.date-item {
+  padding: 0 40rpx;
+}
+.date-item__title {
+  color: #018fff;
+  font-size: 36rpx;
+  text-align: center;
+  line-height: 36rpx;
+  padding: 30rpx 0;
+}
+.record-item {
+  background: #fff;
+  border-radius: 10rpx;
+  box-shadow: 6rpx 6rpx 10rpx rgba(204, 204, 204, 0.582);
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 20rpx;
+}
+.record-item__left {
+  background: #ffc830;
+  font-size: 50rpx;
+  color: #fff;
+  text-align: center;
+  padding: 25rpx 0 30rpx;
+  width: 140rpx;
+  line-height: 1;
+}
+.record-item__date {
+  color: #fff;
+  font-size: 24rpx;
+}
+.record-item__right {
+  flex: 1;
+  display: flex;
+}
+.record-item__lefteye, .record-item__righteye {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 20rpx 0 30rpx 80rpx;
+}
+.record-item__icon {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  text-align: center;
+}
+.record-item__lefteye .record-item__icon {
+  background: #4caf9a;
+}
+.record-item__righteye .record-item__icon {
+  background: #f86e6a;
+}
+.record-item__value {
+  font-size: 36rpx;
+  color: #000;
+  margin-top: 20rpx;
+}
+.record-item__value text {
+  font-size: 24rpx;
+  color: #707070;
+}

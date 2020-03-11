@@ -33,5 +33,13 @@ export const addRecord = data => db.collection('records').add({ data })
 // 更新测试记录
 export const updateRecord = (id, data) => db.collection('records').doc(id).update({ data })
 
-// 查询测试记录
-export const getRecord = data => db.collection('records').orderBy('date', 'desc').limit(1).get()
+// 查询最新一条测试记录
+export const getRecord = data => db.collection('records').where({
+  ...data
+}).orderBy('date', 'desc').limit(1).get()
+
+// 查询所有测试记录
+export const getRecords = uid => wx.cloud.callFunction({
+  name: 'getRecords',
+  data: { uid }
+})
