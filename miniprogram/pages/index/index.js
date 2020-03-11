@@ -12,9 +12,11 @@ Page({
     currentUser: {},
     left_v1: '', 
     left_v2: '',
+    left_plus: false,
     date: '',
     right_v1: '', 
-    right_v2: '' 
+    right_v2: '',
+    right_plus: false,
   },
 
   /**
@@ -133,9 +135,11 @@ Page({
           this.setData({
             left_v1: left.v1, 
             left_v2: left.v2,
+            left_plus: left.list && left.list[0].right > 0,
             date: util.dateFormat(record.date, 'yyyy-MM-dd hh:mm'),
             right_v1: right.v1,
-            right_v2: right.v2
+            right_v2: right.v2,
+            right_plus: right.list && right.list[0].right > 0
           })
         }
       })

@@ -25,12 +25,12 @@
       <view class="record-item__right">
         <view class="record-item__lefteye">
           <view class="record-item__icon">左</view>
-          <view class="record-item__value" wx:if="{{ item.left }}">{{ item.left.v1  }}<text>/{{ item.left.v2 }}{{ item.left.right > 0 ? '+' : '' }}</text></view>
+          <view class="record-item__value" wx:if="{{ item.left }}">{{ item.left.v1  }}<text>/{{ item.left.v2 }}{{ item.left.list[0].right > 0 ? '+' : '' }}</text></view>
           <view class="record-item__value" wx:else><text>-</text></view>
         </view>
         <view class="record-item__righteye">
           <view class="record-item__icon">右</view>
-          <view class="record-item__value" wx:if="{{ item.right }}">{{ item.right.v1  }}<text>/{{ item.right.v2 }}{{ item.right.right > 0 ? '+' : '' }}</text></view>
+          <view class="record-item__value" wx:if="{{ item.right }}">{{ item.right.v1  }}<text>/{{ item.right.v2 }}{{ item.right.list[0].right > 0 ? '+' : '' }}</text></view>
           <view class="record-item__value" wx:else><text>-</text></view>
         </view>
       </view>

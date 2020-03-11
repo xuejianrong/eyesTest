@@ -126,6 +126,7 @@ page {
   font-size: 36rpx;
   color: #000;
   margin-top: 20rpx;
+  line-height: 1;
 }
 .record-item__value text {
   font-size: 24rpx;
