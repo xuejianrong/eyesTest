@@ -195,7 +195,7 @@ Page({
         hasRightData = true
       } else if (hasRightData) {
         // 之前有个右眼数据了
-        rd = rightData[i - 1]
+        rd = rightData[i - 1] / 10
       } else {
         // 一直都没有右眼数据，则让右眼曲线与左眼的重合，让右眼曲线在曲线图上不可见
         rd = records[i].left.v1
