@@ -83,7 +83,7 @@ Page({
     this.setData({
       users: app.globalData.users,
       currentIndex: app.globalData.currentIndex,
-      currentUser: app.globalData.currentUser
+      currentUser: app.globalData.currentUser || {}
     })
     // 如果存在用户数据，则重新拉取最近测试记录
     if (this.data.currentUser && this.data.currentUser._id) {
@@ -130,7 +130,7 @@ Page({
     app.globalData.currentUser = users[app.globalData.currentIndex]
     this.setData({
       users: users,
-      currentUser: users[app.globalData.currentIndex]
+      currentUser: users[app.globalData.currentIndex] || {}
     })
     api.getRecord({ uid: users[app.globalData.currentIndex]._id })
       .then(res => {
@@ -144,9 +144,9 @@ Page({
             left_v2: left.v2,
             left_plus: left.list && left.list[0].right > 0,
             date: util.dateFormat(record.date, 'yyyy-MM-dd hh:mm'),
-            right_v1: right.v1,
-            right_v2: right.v2,
-            right_plus: right.list && right.list[0].right > 0
+            right_v1: right.v1 || '',
+            right_v2: right.v2 || '',
+            right_plus: !!right.list && right.list[0].right > 0
           })
         } else {
           this.setData({

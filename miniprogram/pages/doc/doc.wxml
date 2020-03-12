@@ -15,6 +15,17 @@
 <view class="doc-btn-start" wx:if="{{ records.length === 0 && !loading }}">开始测试</view>
 
 <view class="doc-content" wx:if="{{ records.length > 0 && !loading }}">
+  <view class="doc-charts" wx:if="{{ showChart }}">
+    <view class="eyes-glasses" bindtap="toogleEyesGlasses">
+      <view class="eyes-glasses-item {{ eyesGlasses === '1' ? 'active' : '' }}">裸眼</view>
+      <view class="eyes-glasses-item {{ eyesGlasses === '2' ? 'active' : '' }}">眼镜</view>
+    </view>
+    <view class="left-right">
+      <text class="left-right-l">左</text>
+      <text class="left-right-r">右</text>
+    </view>
+    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchend="touchEndHandler" bindtouchmove="moveHandler" bindtouchstart="touchHandler" disableScroll="{{ false }}"></canvas>
+  </view>
   <view class="date-item" wx:for="{{ records }}" wx:key="index">
     <view class="date-item__title">{{ item.dateStr }}</view>
     <view class="record-item" wx:for="{{ item.list }}" wx:key="index">

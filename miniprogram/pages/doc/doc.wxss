@@ -10,6 +10,8 @@ page {
   padding: 20rpx;
   border-radius: 10rpx;
   box-sizing: border-box;
+  box-shadow: 8rpx 8rpx 12rpx #0191ffc2;
+  z-index: 999;
 }
 .doc-top__avatar {
   font-size: 0;
@@ -131,4 +133,54 @@ page {
 .record-item__value text {
   font-size: 24rpx;
   color: #707070;
+}
+.doc-charts {
+  position: relative;
+  width: 610rpx;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 0 0 8rpx 8rpx;
+  box-shadow: 0 0 20rpx #0191ff57;
+  padding: 100rpx 0 0;
+}
+.doc-charts .canvas {
+  height: 400rpx;
+  width: 100%;
+}
+.eyes-glasses {
+  position: absolute;
+  left: 20rpx;
+  top: 34rpx;
+  border-radius: 8rpx;
+  display: flex;
+  overflow: hidden;
+}
+.eyes-glasses-item {
+  width: 80rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  background: #fcf5e3;
+  color: #efbf5b;
+  font-size: 26rpx;
+}
+.eyes-glasses-item.active {
+  background: #efbf5b;
+  color: #fcf5e3;
+}
+.left-right {
+  position: absolute;
+  right: 20rpx;
+  top: 34rpx;
+}
+.left-right text {
+  font-size: 28rpx;
+  padding: 0 15rpx;
+  line-height: 50rpx;
+}
+.left-right-l {
+  color: #4caf9a;
+}
+.left-right-r {
+  color: #f86e6a;
 }
