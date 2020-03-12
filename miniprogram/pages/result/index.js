@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    type: '', // left right
     left: {},
     right: {},
     leftList: [],
@@ -20,12 +21,17 @@ Page({
       key: 'result',
       success: function (res) {
         const result = res.data
+        const type = result.right ? 'right' : 'left'
         _this.setData({
+          type,
           left: result.left,
           right: result.right,
           leftList: result.left ? result.left.list : [],
           rightList: result.right ? result.right.list : []
         })
+        if (type === 'right') {
+          wx.setStorage({ key: 'result', data: {} })
+        }
       }
     })
   },

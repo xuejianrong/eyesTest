@@ -24,8 +24,9 @@
 </view>
 
 <view class="btn-area">
-  <button class="btn btn-main" bindtap="startRight">继续检测右眼</button>
-  <button class="btn" bindtap="endTest">结束检测</button>
+  <button class="btn btn-main" bindtap="startRight" wx:if="{{ type === 'left' }}">继续检测右眼</button>
+  <button class="btn" bindtap="endTest" wx:if="{{ type === 'left' }}">结束检测</button>
+  <button class="btn btn-main" bindtap="endTest" wx:if="{{ type === 'right' }}">完成</button>
 </view>
 
 <view class="detail">

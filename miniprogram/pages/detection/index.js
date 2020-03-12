@@ -52,6 +52,7 @@ Page({
     }
     */
    currentTranslate: '', // 翻译内容
+   isOver: false, // 防止多次提交结果
   },
 
   /**
@@ -166,6 +167,7 @@ Page({
     // 恢复之前的亮度
     wx.setScreenBrightness({ value: this.data.oldScreenBrightness })
   },
+  // 随机图案
   random (isFirst) {
     let num = parseInt(Math.random() * 4) // 0|1|2|3
     let answer = ''
@@ -190,7 +192,9 @@ Page({
       answer
     })
   },
+  // 回答
   response (answer) {
+    if (this.isOver) return
     let offset = this.data.end >= this.data.start ? 1 : -1
     let next = this.data.current + offset // 下一个需要测试的下标
     let prev = this.data.current - offset // 上一个需要测试的下标
@@ -303,6 +307,7 @@ Page({
   },
   // 测试结束
   over (index, right, wrong) {
+    this.isOver = true
     let _this = this
     const item = app.globalData.eyesightList[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
@@ -312,9 +317,6 @@ Page({
       key: 'result',
       success: function (res) {
         let result = res.data || {}
-        if (_this.data.type === 'left') {
-          delete result.right
-        }
         result[_this.data.type] = {
           // list: _this.data.resultList.sort((a, b) => a.index - b.index),
           list: _this.data.resultList.reverse(),
@@ -367,6 +369,7 @@ Page({
     })
     // TODO 跳转值结果页
   },
+  // 语音开关
   toogleMic () {
     let mic = !this.data.mic
     this.setData({ mic })
@@ -375,6 +378,7 @@ Page({
       data: mic,
     })
   },
+  // 增大
   increase () {
     // increase: 增大 是下标缩小的意思，因为下标越小，图片越大
     const { start, end, current } = this.data
@@ -382,6 +386,7 @@ Page({
     if (start > end && current === end) return
     this.setData({ current: current - 1 })
   },
+  // 缩小
   shrink () {
     // shrink 缩小 与increase相反
     const { start, end, current } = this.data
@@ -389,6 +394,7 @@ Page({
     if (start > end && current === start) return
     this.setData({ current: current + 1 })
   },
+  // 撤回
   backout () {
     if (this.data.resultList.length === 0) return
     let curr = this.data.resultList[this.data.resultList.length - 1]
@@ -412,6 +418,7 @@ Page({
       }
     })
   },
+  // 重新开始
   resetting () {
     this.setData({
       resultList: [],
@@ -420,12 +427,15 @@ Page({
       wrong: 0
     })
   },
+  // 切换设置哪个参数
   toogleSettingState (e) {
     this.setData({ settingIconState: e.currentTarget.dataset.state })
   },
+  // 裸眼、眼镜切换
   eyesGlassesHandle (e) {
     this.setData({ eyesGlasses: e.currentTarget.dataset.v })
   },
+  // 更改开始视标
   startChangeHandle (e) {
     let { value } = e.detail
     let startValue = (value).toFixed(1)
@@ -435,6 +445,7 @@ Page({
     let direction = start <= this.data.end ? 1 : 0
     wx.setStorage({ key: 'direction', data: direction })
   },
+  // 更改结束视标
   endChangeHandle (e) {
     let { value } = e.detail
     let endValue = (value).toFixed(1)
@@ -444,11 +455,13 @@ Page({
     let direction = this.data.start <= end ? 1 : 0
     wx.setStorage({ key: 'direction', data: direction })
   },
+  // 更改视标数量
   counterChangeHandle (e) {
     let { value } = e.detail
     this.setData({ counter: value, counterValue: Math.floor((value / 2) + 1) })
     wx.setStorage({ key: 'counter', data: value })
   },
+  // 调整屏幕亮度
   brightnessChangeHandle (e) {
     let { value } = e.detail
     this.setData({ screenBrightness: value })
