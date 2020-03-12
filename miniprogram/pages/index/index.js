@@ -125,7 +125,19 @@ Page({
   onShareAppMessage: function () {
 
   },
-  setUsers (users) {
+  setUsers(users) {
+    if (users.length === 0) {
+      api.addUser().then(res => {
+        console.log('addUser', res)
+        return api.getUsers()
+      }).then(res => {
+        console.log('addUser 之后 getUsers', res)
+        wx.hideLoading()
+        const { data } = res
+        this.setUsers(data)
+      })
+      return
+    }
     app.globalData.users = users
     app.globalData.currentUser = users[app.globalData.currentIndex]
     this.setData({

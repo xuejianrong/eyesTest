@@ -312,6 +312,9 @@ Page({
       key: 'result',
       success: function (res) {
         let result = res.data || {}
+        if (_this.data.type === 'left') {
+          delete result.right
+        }
         result[_this.data.type] = {
           // list: _this.data.resultList.sort((a, b) => a.index - b.index),
           list: _this.data.resultList.reverse(),
@@ -465,7 +468,6 @@ Page({
   },
   // 录音结束
   streamRecordEnd: function() {
-    console.log('结束录音1111111')
     manager.stop()
   },
   /**
@@ -473,7 +475,6 @@ Page({
    * 绑定语音播放开始事件
    */
   initRecoed: function () {
-    console.log('初始化语音识别回调')
     manager.onRecognize = res => {
       let currentData = Object.assign({}, this.data.currentTranslate, {
                         text: res.result,
@@ -484,7 +485,6 @@ Page({
       console.log('当前语音', currentData)
     }
     manager.onStop = res => {
-      console.log('录音结束222222')
       let text = res.result
       if(text == '') {
         this.setData({
