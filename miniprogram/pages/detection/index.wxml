@@ -27,6 +27,11 @@
   </view>
 </view>
 
+<block wx:if="{{ mic }}">
+  <view class="record-btn" catchtouchstart="streamRecord" catchtouchend="streamRecordEnd">长按录音</view>
+  <view class="record-result">语音：{{ currentTranslate }}</view>
+</block>
+
 <view class="det-main">
   <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}{{ picType === 'E' ? '' : '_2' }}.png"></image>
   <!-- 模拟设备按钮 -->

@@ -8,6 +8,8 @@ const innerAudioContext_right_start = wx.createInnerAudioContext()
 innerAudioContext_right_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/right-start.mp3'
 const innerAudioContext_over = wx.createInnerAudioContext()
 innerAudioContext_over.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/over.mp3'
+const plugin = requirePlugin("WechatSI")
+const manager = plugin.getRecordRecognitionManager()
 
 Page({
 
@@ -49,6 +51,7 @@ Page({
       v2: '0.1'
     }
     */
+   currentTranslate: '', // 翻译内容
   },
 
   /**
@@ -142,6 +145,8 @@ Page({
         wx.setScreenBrightness({ value: 0.8 })
       }
     })
+
+    this.initRecoed()
   },
 
   /**
@@ -447,6 +452,51 @@ Page({
     wx.setScreenBrightness({
       value
     })
+  },
+  // 开始语音识别
+  streamRecord: function () {
+    if (!this.data.mic) return
+    manager.start({
+      lang: 'zh_CN',
+    })
+    this.setData({
+      currentTranslate: '录音中...',
+    })
+  },
+  // 录音结束
+  streamRecordEnd: function() {
+    console.log('结束录音1111111')
+    manager.stop()
+  },
+  /**
+   * 初始化语音识别回调
+   * 绑定语音播放开始事件
+   */
+  initRecoed: function () {
+    console.log('初始化语音识别回调')
+    manager.onRecognize = res => {
+      let currentData = Object.assign({}, this.data.currentTranslate, {
+                        text: res.result,
+                      })
+      this.setData({
+        currentTranslate: currentData,
+      })
+      console.log('当前语音', currentData)
+    }
+    manager.onStop = res => {
+      console.log('录音结束222222')
+      let text = res.result
+      if(text == '') {
+        this.setData({
+          currentTranslate: '录音内容为空',
+        })
+        return
+      }
+      this.setData({
+        currentTranslate: text,
+      })
+      console.log('最后语音', text)
+    }
   },
 
   // 模拟操作

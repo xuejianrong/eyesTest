@@ -37,5 +37,11 @@
     "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
     "van-transition": "/miniprogram_npm/@vant/weapp/transition/index"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.3",
+      "provider": "wx069ba97219f66d99"
+    }
+  }
 }
