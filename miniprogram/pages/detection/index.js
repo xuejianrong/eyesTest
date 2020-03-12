@@ -479,7 +479,7 @@ Page({
       currentTranslate: '录音中...',
     })
   },
-  // 录音结束
+  // 结束录音
   streamRecordEnd: function() {
     manager.stop()
   },
@@ -488,16 +488,17 @@ Page({
    * 绑定语音播放开始事件
    */
   initRecoed: function () {
-    manager.onRecognize = res => {
-      let currentData = Object.assign({}, this.data.currentTranslate, {
-                        text: res.result,
-                      })
-      this.setData({
-        currentTranslate: currentData,
-      })
-      console.log('当前语音', currentData)
-    }
+    // manager.onRecognize = res => {
+    //   let currentData = Object.assign({}, this.data.currentTranslate, {
+    //                     text: res.result,
+    //                   })
+    //   this.setData({
+    //     currentTranslate: currentData,
+    //   })
+    //   console.log('当前语音', currentData)
+    // }
     manager.onStop = res => {
+      console.log(res)
       let text = res.result
       if(text == '') {
         this.setData({

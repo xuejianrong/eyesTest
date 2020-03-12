@@ -27,7 +27,7 @@
   </view>
 </view>
 
-<block wx:if="{{ mic }}">
+<block wx:if="{{ mic && false }}">
   <view class="record-btn" catchtouchstart="streamRecord" catchtouchend="streamRecordEnd">长按录音</view>
   <view class="record-result">语音：{{ currentTranslate }}</view>
 </block>
