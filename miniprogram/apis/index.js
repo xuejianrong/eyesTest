@@ -27,6 +27,12 @@ export const updateUser = (id, data) => db.collection('users').doc(id).update({ 
 // 删除用户
 export const deleteUser = id => db.collection('users').doc(id).remove()
 
+// 删除改用户的是用测试记录
+export const delRecordsByUid = uid => wx.cloud.callFunction({
+  name: 'delRecordsByUid',
+  data: { uid }
+})
+
 // 新增测试记录
 export const addRecord = data => db.collection('records').add({ data })
 

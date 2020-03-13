@@ -115,6 +115,7 @@ Page({
         if (res.confirm) {
           api.deleteUser(_this.data.detail._id)
             .then(() => {
+              api.delRecordsByUid(_this.data.detail._id)
               return api.getUsers()
             })
             .then(res => {
