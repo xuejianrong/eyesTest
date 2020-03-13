@@ -1,6 +1,7 @@
 // miniprogram/pages/detection/index.js
 let app = getApp()
 const api = require('../../apis/index.js')
+const answerKey = require('../../utils/answer-key.js')
 
 const innerAudioContext_start = wx.createInnerAudioContext()
 innerAudioContext_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/start.mp3'
@@ -53,6 +54,8 @@ Page({
     */
    currentTranslate: '', // 翻译内容
    isOver: false, // 防止多次提交结果
+   tipText: '录音中...',
+   isPause: false, // 防止录音结果多次提交
   },
 
   /**
@@ -148,6 +151,10 @@ Page({
     })
 
     this.initRecoed()
+    setTimeout(() => {
+      // 延迟启动录音(开启测试时会有语音播放)
+      this.streamRecord()
+    }, 2000)
   },
 
   /**
@@ -194,7 +201,14 @@ Page({
   },
   // 回答
   response (answer) {
-    if (this.isOver) return
+    // 防止多次提交结果
+    if (this.data.isOver) return
+    // 防止连续作答
+    if (this.data.isPause) return
+    this.data.isPause = true
+    setTimeout(() => {
+      this.data.isPause = false
+    }, 500)
     let offset = this.data.end >= this.data.start ? 1 : -1
     let next = this.data.current + offset // 下一个需要测试的下标
     let prev = this.data.current - offset // 上一个需要测试的下标
@@ -307,7 +321,7 @@ Page({
   },
   // 测试结束
   over (index, right, wrong) {
-    this.isOver = true
+    this.data.isOver = true
     let _this = this
     const item = app.globalData.eyesightList[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
@@ -476,7 +490,7 @@ Page({
       lang: 'zh_CN',
     })
     this.setData({
-      currentTranslate: '录音中...',
+      currentTranslate: '',
     })
   },
   // 结束录音
@@ -488,29 +502,55 @@ Page({
    * 绑定语音播放开始事件
    */
   initRecoed: function () {
-    // manager.onRecognize = res => {
-    //   let currentData = Object.assign({}, this.data.currentTranslate, {
-    //                     text: res.result,
-    //                   })
-    //   this.setData({
-    //     currentTranslate: currentData,
-    //   })
-    //   console.log('当前语音', currentData)
-    // }
-    manager.onStop = res => {
-      console.log(res)
-      let text = res.result
-      if(text == '') {
-        this.setData({
-          currentTranslate: '录音内容为空',
-        })
+    manager.onRecognize = res => {
+      this.setData({
+        currentTranslate: res.result,
+      })
+      console.log('当前语音', res.result)
+      // 判断语音中是否含有答案
+      const answers = this.getAnswers(this.data.picType, res.result)
+      if (answers.length === 0) {
+        // 一个关键字都没有,则都当做没有作答
         return
       }
+      if (answers.length > 1) {
+        // 关键字大于一个,则都当做没有作答,并开启新一轮录音
+        this.streamRecordEnd()
+        return
+      }
+      // 只有一个关键字
+      this.response(answers[0])
+      this.streamRecordEnd()
+    }
+    manager.onStop = res => {
+      let text = res.result
+      // if(text == '') {
+      //   this.setData({
+      //     currentTranslate: '录音内容为空',
+      //   })
+      //   return
+      // }
       this.setData({
         currentTranslate: text,
       })
+      // 测试未结束就重新开启录音
+      !this.data.isOver && this.streamRecord()
       console.log('最后语音', text)
     }
+  },
+  // 判断语音识别结果中包含哪些答案
+  getAnswers (picType, text) {
+    const answers = []
+    const directions = ['up', 'down', 'left', 'right']
+    // if (picType === 'E') {
+    directions.forEach(direction => {
+      if (answerKey[direction + (picType === 'E' ? '' : '2')].find(key => {
+        return text.indexOf(key) > -1
+      })) {
+        answers.push(direction)
+      }
+    })
+    return answers
   },
 
   // 模拟操作
