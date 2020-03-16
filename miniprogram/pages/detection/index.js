@@ -193,7 +193,7 @@ Page({
     this.initRecoed()
     setTimeout(() => {
       // 延迟启动录音(开启测试时会有语音播放)
-      this.streamRecord()
+      this.data.mic && this.streamRecord()
     }, 2000)
 
     this.openBluetoothAdapter()
@@ -434,6 +434,11 @@ Page({
       key: 'mic',
       data: mic,
     })
+    if (mic) {
+      this.streamRecord()
+    } else {
+      this.streamRecordEnd()
+    }
   },
   // 增大
   increase () {
@@ -577,7 +582,7 @@ Page({
         currentTranslate: text,
       })
       // 测试未结束就重新开启录音
-      !this.data.isOver && this.streamRecord()
+      !this.data.isOver && this.data.mic &&  this.streamRecord()
       console.log('最后语音', text)
     }
   },

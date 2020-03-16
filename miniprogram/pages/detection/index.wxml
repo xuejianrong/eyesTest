@@ -19,9 +19,9 @@
   <view class="det-bar-item">
     <image bindtap="shrink" src="/images/tool/down.png"></image>缩小
   </view>
-  <view class="det-bar-item">
+  <!-- <view class="det-bar-item">
     <image bindtap="backout" src="/images/tool/backout.png"></image>撤销
-  </view>
+  </view> -->
   <view class="det-bar-item">
     <image bindtap="showSetting" src="/images/tool/setting.png"></image>设置
   </view>
@@ -35,10 +35,10 @@
 <view class="det-main">
   <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}{{ picType === 'E' ? '' : '_2' }}.png"></image>
   <!-- 模拟设备按钮 -->
-  <button class="btn btn-up" bindtap="answerUp">上(房子)</button>
+  <!-- <button class="btn btn-up" bindtap="answerUp">上(房子)</button>
   <button class="btn btn-down" bindtap="answerDwon">下(心形)</button>
   <button class="btn btn-left" bindtap="answerLeft">左(正方形)</button>
-  <button class="btn btn-right" bindtap="answerRight">右(圆形)</button>
+  <button class="btn btn-right" bindtap="answerRight">右(圆形)</button> -->
 </view>
 
 <tool type="2"></tool>

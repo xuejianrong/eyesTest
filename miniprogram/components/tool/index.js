@@ -80,6 +80,12 @@ Component({
         key: 'mic',
         data: mic,
       })
+      this.properties.type === '1' && wx.showToast({
+        title: '麦克风已' + mic ? '开启' : '关闭',
+        icon: 'none',
+        mask: true,
+        duration: 2000
+      })
     },
     toogleDirection () {
       let direction = this.data.direction ? 0 : 1
