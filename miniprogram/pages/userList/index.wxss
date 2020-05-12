@@ -24,14 +24,16 @@
 .cell-left {
   width: 65px;
   background: #07c160;
-  line-height: 120rpx;
+  height: 100%;
   text-align: center;
+  line-height: 120rpx;
   color: #fff;
 }
 .cell-right {
   width: 65px;
   background: #ee0a24;
-  line-height: 120rpx;
+  height: 100%;
   text-align: center;
+  line-height: 120rpx;
   color: #fff;
 }

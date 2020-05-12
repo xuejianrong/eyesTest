@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detail: {},
+    detail: {
+      sex: 'man'
+    },
     type: 'add'
   },
 
@@ -64,6 +66,11 @@ Page({
       'detail.sex': 'woman'
     })
   },
+  onSexChange (event) {
+    this.setData({
+      'detail.sex': event.detail
+    })
+  },
   bindDateChange (e) {
     this.setData({
       'detail.birth': e.detail.value
@@ -101,7 +108,6 @@ Page({
           app.globalData.users = res.data
           app.globalData.currentIndex = res.data.length - 1
           app.globalData.currentUser = res.data[res.data.length - 1]
-          console.log(app.globalData.currentIndex)
           wx.hideLoading()
           wx.navigateBack()
         })

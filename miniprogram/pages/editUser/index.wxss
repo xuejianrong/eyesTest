@@ -1,8 +1,63 @@
-/* miniprogram/pages/editUser/index.wxss */
-page {
-  background: #fff;
+.edit-user-form {
+  position: relative;
+  padding: 60rpx 23rpx 0;
 }
-.edit-user {
+.edit-user-form_container {
+  position: relative;
+  width: 100%;
+  border-radius: 18rpx;
+  background-color: #fff;
+  box-shadow: 5rpx 5rpx 20rpx rgba(0, 0, 0, .05);
+  padding-top: 196rpx;
+}
+.form {
+  border-radius: 0 0 18rpx 18rpx;
+  overflow: hidden;
+}
+.form-avatar {
+  position: absolute;
+  left: calc(50% - 99rpx);
+  top: -44rpx;
+  height: 218rpx;
+  width: 218rpx;
+  padding: 20rpx;
+  font-size: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-sizing: border-box;
+}
+.avatar-image {
+  width: 178rpx;
+  height: 178rpx;
+  border-radius: 50%;
+}
+.avatar-plus {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+.radio-group {
+  display: flex;
+  width: 240rpx;
+  justify-content: space-between;
+}
+.btn-add__submit {
+  position: fixed;
+  left: 40rpx;
+  bottom: 50rpx;
+  width: 670rpx;
+  color: #fff;
+  font-size: 34rpx;
+  background: #018fff;
+}
+.btn-add__submit:active {
+  background: #0191ffc0;
+}
+
+
+/* .edit-user {
   position: relative;
   min-height: 100%;
   background: #fff;
@@ -95,16 +150,4 @@ page {
 }
 .btn-area__submit:active {
   background: #0191ffc0;
-}
-.btn-add__submit {
-  position: fixed;
-  left: 40rpx;
-  bottom: 50rpx;
-  width: 670rpx;
-  color: #fff;
-  font-size: 34rpx;
-  background: #018fff;
-}
-.btn-add__submit:active {
-  background: #0191ffc0;
-}
+} */

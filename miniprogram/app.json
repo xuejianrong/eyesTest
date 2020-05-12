@@ -48,7 +48,10 @@
     "van-swipe-cell": "/miniprogram_npm/@vant/weapp/swipe-cell/index",
     "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
     "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
-    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index",
+    "van-radio-group": "/miniprogram_npm/@vant/weapp/radio-group/index",
+    "van-radio": "/miniprogram_npm/@vant/weapp/radio/index"
   },
   "sitemapLocation": "sitemap.json",
   "plugins": {

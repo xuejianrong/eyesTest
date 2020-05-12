@@ -1,8 +1,8 @@
 
 <van-cell-group title="用户列表">
   <block wx:for="{{ users }}" wx:key="key">
-    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose">
-      <view slot="left" class="cell-left">选择</view>
+    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose" data-index="{{ index }}">
+      <view slot="left" class="cell-left">编辑</view>
       <van-cell bind:click="selectUser" data-index="{{ index }}">
         <view slot="title" class="cell-title">
           <image class="user-avatar" src="{{ item.avatar || '/images/headSwiper/user.png' }}"></image>
@@ -18,7 +18,7 @@
 </van-cell-group>
 
 <view class="btn-container">
-  <view class="btn-main">添加</view>
+  <view class="btn-main" bindtap="addUser">添加</view>
 </view>
 
 <van-dialog id="van-dialog" />

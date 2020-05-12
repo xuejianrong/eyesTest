@@ -14,16 +14,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中'
-    })
-    // 获取数据不需要openID，默认也就只能获取该用户创建的数据
-    api.getUsers()
-      .then(res => {
-        const { data } = res
-        wx.hideLoading()
-        this.setUsers(data)
-      })
+    
+  },
+  onShow: function () {
+    this.getData()
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -37,6 +31,18 @@ Page({
    */
   onUnload: function () {
 
+  },
+  getData() {
+    wx.showLoading({
+      title: '加载中'
+    })
+    // 获取数据不需要openID，默认也就只能获取该用户创建的数据
+    api.getUsers()
+      .then(res => {
+        const { data } = res
+        wx.hideLoading()
+        this.setUsers(data)
+      })
   },
   setUsers(users) {
     app.globalData.users = users
@@ -54,18 +60,38 @@ Page({
   },
   onClose(event) {
     const { position, instance } = event.detail;
+    const { dataset } = event.currentTarget
     switch (position) {
       case 'left':
       case 'cell':
         instance.close();
+        app.globalData.currentIndex = dataset.index
+        app.globalData.currentUser = this.data.users[app.globalData.currentIndex]
+        wx.navigateTo({
+          url: '../../pages/editUser/index?type=edit'
+        })
         break;
       case 'right':
         Dialog.confirm({
           message: '确定删除吗？',
         }).then(() => {
           instance.close();
+          this.doDelete(this.data.users[dataset.index]._id)
         });
         break;
     }
+  },
+  addUser() {
+    wx.navigateTo({
+      url: '../../pages/editUser/index?type=add'
+    })
+  },
+  doDelete (id) {
+    let _this = this
+    api.deleteUser(id)
+      .then(() => {
+        api.delRecordsByUid(id)
+        _this.getData()
+      })
   }
 })

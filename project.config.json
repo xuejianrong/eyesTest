@@ -59,7 +59,7 @@
 				},
 				{
 					"id": 1,
-					"name": "pages/editUser/index",
+					"name": "editUser",
 					"pathName": "pages/editUser/index",
 					"query": "type=add",
 					"scene": null
