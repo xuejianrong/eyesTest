@@ -1,12 +1,14 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
     "pages/doc/doc",
     "components/headSwiper/index",
     "pages/editUser/index",
     "components/tool/index",
     "pages/detection/index",
-    "pages/result/index"
+    "pages/result/index",
+    "pages/find/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -18,16 +20,22 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/home/home",
         "text": "视力检测",
         "iconPath": "images/tabBar/home.png",
         "selectedIconPath": "images/tabBar/home_act.png"
       },
       {
         "pagePath": "pages/doc/doc",
-        "text": "视力档案",
+        "text": "用户档案",
         "iconPath": "images/tabBar/doc.png",
         "selectedIconPath": "images/tabBar/doc_act.png"
+      },
+      {
+        "pagePath": "pages/find/index",
+        "text": "发现",
+        "iconPath": "images/tabBar/poi.png",
+        "selectedIconPath": "images/tabBar/poi_act.png"
       }
     ],
     "color": "#666",

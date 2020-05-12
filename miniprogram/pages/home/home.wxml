@@ -1,0 +1,37 @@
+<view class="home-top">
+  <view class="home-top_container">
+    <view class="home-top-info_box">
+      <view class="home-top-info_E">E</view>
+      <view class="home-top-info_height">
+        <view class="home-top-info_title1">身高<text>(cm)</text></view>
+        <view class="home-top-info_value1">{{ currentUser.height || '-' }}</view>
+      </view>
+      <view class="home-top-info_weight">
+        <view class="home-top-info_title1">体重<text>(kg)</text></view>
+        <view class="home-top-info_value1">{{ currentUser.weight || '-' }}</view>
+      </view>
+      <view class="home-top-info_avatar">
+        <image src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
+      </view>
+      <view class="home-top-info_name">{{ currentUser.name }}</view>
+    </view>
+    <view class="home-top-info_leftEye">
+      <view class="home-top-info_title2">
+        左眼视力
+        <text class="home-top-info_value2">{{ left_v1 || '-' }} {{ left_plus ? '+' : '' }}</text>
+      </view>
+    </view>
+    <view class="home-top-info_rightEye">
+      <view class="home-top-info_title2">
+        右眼视力
+        <text class="home-top-info_value2">{{ right_v1 || '-' }} {{ right_plus ? '+' : '' }}</text>
+      </view>
+    </view>
+    <view class="home-top-info_lastTime">最后一次检测 {{ date }}</view>
+  </view>
+  <view class="home-tabs-container">
+    <view class="home-tabs-item" wx:for="{{ tabs }}" wx:key="key">
+      <image src="{{ '/images/home/tab' + (index + 1) + '.png' }}"></image>
+    </view>
+  </view>
+</view>
