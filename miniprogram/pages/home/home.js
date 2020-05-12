@@ -21,7 +21,7 @@ Page({
       { url: '', name: '视力检测' },
       { url: '', name: '身高测量' },
       { url: '', name: '激光校准' },
-      { url: '', name: '用户管理' },
+      { url: '/pages/userList/index', name: '用户管理' },
       { url: '', name: '系统设置' },
       { url: '', name: '联系我们' },
     ]
@@ -31,21 +31,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 获取该微信用户(openID)下的所有测试用户，如果没有则新增一条记录
-    api.getOpenid()
-      .then(res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        const { openid } = res.result
-        app.globalData.openid = openid
-        return openid
-      })
     wx.showLoading({
       title: '加载中'
     })
     // 获取数据不需要openID，默认也就只能获取该用户创建的数据
     api.getUsers()
       .then(res => {
-        console.log('getUsers', res)
         const { data } = res
         if (!data || data.length === 0) {
           // 没有则创建
@@ -56,11 +47,9 @@ Page({
       })
       .then(res => {
         if (!res) return
-        console.log('addUser', res)
         return api.getUsers()
       }).then(res => {
         if (!res) return
-        console.log('addUser 之后 getUsers', res)
         wx.hideLoading()
         const { data } = res
         this.setUsers(data)
@@ -118,10 +107,8 @@ Page({
   setUsers(users) {
     if (users.length === 0) {
       api.addUser().then(res => {
-        console.log('addUser', res)
         return api.getUsers()
       }).then(res => {
-        console.log('addUser 之后 getUsers', res)
         wx.hideLoading()
         const { data } = res
         this.setUsers(data)
@@ -163,4 +150,10 @@ Page({
         }
       })
   },
+  tapTab(e) {
+    const { dataset } = e.currentTarget
+    wx.navigateTo({
+      url: this.data.tabs[dataset.index].url
+    })
+  }
 })

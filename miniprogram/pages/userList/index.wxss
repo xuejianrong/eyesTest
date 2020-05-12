@@ -1,0 +1,37 @@
+
+.cell-title {
+  display: flex;
+  height: 80rpx;
+}
+.user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+}
+.user-name {
+  flex: 1;
+  line-height: 80rpx;
+  padding-left: 20rpx;
+}
+.cell-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+}
+.btn-container {
+  padding-top: 46rpx;
+}
+.cell-left {
+  width: 65px;
+  background: #07c160;
+  line-height: 120rpx;
+  text-align: center;
+  color: #fff;
+}
+.cell-right {
+  width: 65px;
+  background: #ee0a24;
+  line-height: 120rpx;
+  text-align: center;
+  color: #fff;
+}

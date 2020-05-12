@@ -8,7 +8,8 @@
     "components/tool/index",
     "pages/detection/index",
     "pages/result/index",
-    "pages/find/index"
+    "pages/find/index",
+    "pages/userList/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -43,7 +44,11 @@
   },
   "usingComponents": {
     "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
-    "van-transition": "/miniprogram_npm/@vant/weapp/transition/index"
+    "van-transition": "/miniprogram_npm/@vant/weapp/transition/index",
+    "van-swipe-cell": "/miniprogram_npm/@vant/weapp/swipe-cell/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+    "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
   },
   "sitemapLocation": "sitemap.json",
   "plugins": {

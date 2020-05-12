@@ -2,3 +2,15 @@ page {
   background: #f3f3f3;
 }
 /* 主题颜色 #018fff */
+
+.btn-main {
+  width: 705rpx;
+  margin: 0 auto;
+  font-size: 37rpx;
+  color: #fff;
+  line-height: 1;
+  padding: 30rpx 0;
+  text-align: center;
+  background: #3da2fe;
+  border-radius: 18rpx;
+}

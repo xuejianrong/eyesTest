@@ -1,0 +1,24 @@
+
+<van-cell-group title="用户列表">
+  <block wx:for="{{ users }}" wx:key="key">
+    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose">
+      <view slot="left" class="cell-left">选择</view>
+      <van-cell bind:click="selectUser" data-index="{{ index }}">
+        <view slot="title" class="cell-title">
+          <image class="user-avatar" src="{{ item.avatar || '/images/headSwiper/user.png' }}"></image>
+          <view class="user-name">{{ item.name }}</view>
+          <view class="cell-icon">
+            <van-icon name="arrow" />
+          </view>
+        </view>
+      </van-cell>
+      <view slot="right" class="cell-right">删除</view>
+    </van-swipe-cell>
+  </block>
+</van-cell-group>
+
+<view class="btn-container">
+  <view class="btn-main">添加</view>
+</view>
+
+<van-dialog id="van-dialog" />

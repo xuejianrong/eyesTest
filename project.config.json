@@ -82,6 +82,13 @@
 					"id": -1,
 					"name": "pages/doc/doc",
 					"pathName": "pages/doc/doc",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "userList",
+					"pathName": "pages/userList/index",
 					"scene": null
 				}
 			]
