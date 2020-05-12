@@ -8,9 +8,9 @@
       </view>
       <view class="form">
         <van-cell-group>
-          <van-field value="{{ detail.name }}" label="昵称" placeholder="请输入昵称" input-align="right"/>
+          <van-field value="{{ detail.name }}" name="name" label="昵称" placeholder="请输入昵称" input-align="right"/>
         </van-cell-group>
-        <van-radio-group value="{{ detail.sex }}" bind:change="onSexChange">
+        <van-radio-group value="{{ detail.sex }}" name="sex" bind:change="onSexChange">
           <van-cell title="性别">
             <view class="radio-group" slot="right-icon">
               <van-radio name="man">男</van-radio>
@@ -24,22 +24,22 @@
           </picker>
         </van-cell-group>
         <van-cell-group>
-          <van-field value="{{ detail.school }}" label="学校" placeholder="请输入学校" input-align="right"/>
+          <van-field value="{{ detail.school }}" name="school" label="学校" placeholder="请输入学校" input-align="right"/>
         </van-cell-group>
         <van-cell-group>
-          <van-field value="{{ detail.grade }}" label="年级" placeholder="请输入年级" input-align="right"/>
+          <van-field value="{{ detail.grade }}" name="grade" label="年级" placeholder="请输入年级" input-align="right"/>
         </van-cell-group>
         <van-cell-group>
-          <van-field value="{{ detail.height }}" label="身高(cm)" placeholder="请输入身高" input-align="right"/>
+          <van-field value="{{ detail.height }}" name="height" label="身高(cm)" placeholder="请输入身高" input-align="right"/>
         </van-cell-group>
         <van-cell-group>
-          <van-field value="{{ detail.weight }}" label="体重(kg)" placeholder="请输入体重" input-align="right"/>
+          <van-field value="{{ detail.weight }}" name="weight" label="体重(kg)" placeholder="请输入体重" input-align="right"/>
         </van-cell-group>
       </view>
     </view>
   </view>
   <button wx:if="{{ type === 'add' }}" class="btn-add__submit" formType="submit">确认添加</button>
-  <button wx:else class="btn-add__submit" formType="submit">确认添加</button>
+  <button wx:else class="btn-add__submit" formType="submit">确认修改</button>
 </form>
 
 <!-- <view class="edit-user">

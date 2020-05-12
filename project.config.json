@@ -59,7 +59,7 @@
 				},
 				{
 					"id": 1,
-					"name": "editUser",
+					"name": "pages/editUser/index",
 					"pathName": "pages/editUser/index",
 					"query": "type=add",
 					"scene": null
@@ -86,7 +86,13 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 5,
+					"name": "editUser",
+					"pathName": "pages/editUser/index",
+					"scene": null
+				},
+				{
+					"id": 6,
 					"name": "userList",
 					"pathName": "pages/userList/index",
 					"scene": null

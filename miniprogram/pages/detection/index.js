@@ -95,7 +95,20 @@ Page({
     connected: false,
     chs: [],
     canWrite: true,
-
+    deviceMsgs: {
+      // 遮盖左眼
+      closeLeftEye: ['0x55', '0x0C', '0x02', '0xC7', '0xEB', '0xD5', '0xDA', '0xB8', '0xC7', '0xD7', '0xF3', '0xD1', '0xDB', '0xB9'],
+      // 遮盖右眼
+      closeRightEye: ['0x55', '0x09', '0x02', '0xD7', '0xF3', '0xD1', '0xDB', '0x34', '0x2E', '0x39', '0x71'],
+      // 打开激光
+      openLaser: ['0x55', '0x03', '0x11', '0x01', '0x6A'],
+      // 关闭激光
+      closeLaser: ['0x55', '0x03', '0x11', '0x00', '0x69'],
+      // 打开测距
+      openDistance: ['0x55', '0x03', '0x12', '0x01', '0x6B'],
+      // 关闭测距
+      closeDistance: ['0x55', '0x03', '0x12', '0x00', '0x6A']
+    }
   },
 
   /**
@@ -582,7 +595,7 @@ Page({
         currentTranslate: text,
       })
       // 测试未结束就重新开启录音
-      !this.data.isOver && this.data.mic &&  this.streamRecord()
+      !this.data.isOver && this.data.mic && this.streamRecord()
       console.log('最后语音', text)
     }
   },

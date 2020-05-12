@@ -85,6 +85,8 @@ Page({
       avatar: detail.avatar,
       ...e.detail.value
     }
+    delete data.man
+    delete data.woman
     wx.showLoading({
       title: '保存中',
     })
