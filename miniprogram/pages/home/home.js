@@ -18,7 +18,7 @@ Page({
     right_v2: '',
     right_plus: false,
     tabs: [
-      { url: '', name: '视力检测' },
+      { url: '/pages/beforeDetection/index', name: '视力检测' },
       { url: '', name: '身高测量' },
       { url: '', name: '激光校准' },
       { url: '/pages/userList/index', name: '用户管理' },

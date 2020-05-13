@@ -1,0 +1,67 @@
+.selections {
+  display: flex;
+  width: 706rpx;
+  margin: 20rpx auto 0;
+  border-radius: 26rpx;
+  background: #fff;
+  box-shadow: 5rpx 5rpx 20rpx rgba(0, 0, 0, .05);
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.selections .option {
+  position: relative;
+  width: calc(50% + 2px);
+  border: 1px solid #e3e3e3;
+  box-sizing: border-box;
+  padding: 16rpx;
+  margin: -1px;
+  background-color: #fff;
+}
+.selections .radio {
+  position: relative;
+  border-radius: 14rpx;
+  border: 1px solid #fff;
+  text-align: center;
+  line-height: 1;
+  padding: 32rpx 0;
+  font-size: 30rpx;
+  color: #000;
+  overflow: hidden;
+}
+.selections .radio.active {
+  border-color: #42c545;
+}
+.selections .tag {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  right: 0;
+  border: 19rpx solid #42c545;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.selections .success-icon {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  top: 0;
+  right: 0;
+  font-size: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.btn-start {
+  margin-top: 90rpx;
+  background: #42c545;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 44rpx;
+}
+.btn-start text {
+  padding-left: 10rpx;
+  font-size: 37rpx;
+}

@@ -59,7 +59,7 @@
 				},
 				{
 					"id": 1,
-					"name": "pages/editUser/index",
+					"name": "editUser",
 					"pathName": "pages/editUser/index",
 					"query": "type=add",
 					"scene": null
@@ -86,15 +86,16 @@
 					"scene": null
 				},
 				{
-					"id": 5,
-					"name": "editUser",
-					"pathName": "pages/editUser/index",
+					"id": -1,
+					"name": "userList",
+					"pathName": "pages/userList/index",
 					"scene": null
 				},
 				{
-					"id": 6,
-					"name": "userList",
-					"pathName": "pages/userList/index",
+					"id": -1,
+					"name": "beforeDetection",
+					"pathName": "pages/beforeDetection/index",
+					"query": "type=add",
 					"scene": null
 				}
 			]

@@ -1,6 +1,6 @@
 
 <van-cell-group title="用户列表">
-  <block wx:for="{{ users }}" wx:key="key">
+  <block wx:for="{{ users }}" wx:key="index">
     <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose" data-index="{{ index }}">
       <view slot="left" class="cell-left">编辑</view>
       <van-cell bind:click="selectUser" data-index="{{ index }}">

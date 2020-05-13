@@ -1,6 +1,6 @@
 <!--components/headSwiper/index.wxml-->
 <swiper class="index-swiper" current="{{ current }}" bindchange="onSwiperChange" previous-margin	="250rpx" next-margin="250rpx">
-  <block wx:for="{{ list }}" wx:key="key">
+  <block wx:for="{{ list }}" wx:key="index">
     <swiper-item bindtap="edit" data-item="{{ item }}" data-index="{{ index }}">
       <view class="content">
         <image src="{{ item.avatar || '/images/headSwiper/user.png' }}"></image>

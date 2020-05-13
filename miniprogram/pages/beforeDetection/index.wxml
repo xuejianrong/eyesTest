@@ -1,0 +1,15 @@
+<view class="selections">
+  <view class="option" wx:for="{{ options }}" wx:key="index">
+    <view class="radio {{ result[item.key] === item.value ? 'active' : '' }}"
+          bindtap="selectOption" data-key="{{ item.key }}" data-value="{{ item.value }}">
+      {{ item.name }}
+      <view class="tag" wx:if="{{ result[item.key] === item.value }}"></view>
+      <view class="success-icon" wx:if="{{ result[item.key] === item.value }}"><van-icon name="success" /></view>
+    </view>
+  </view>
+</view>
+
+<view class="btn-main btn-start">
+  <van-icon name="play" />
+  <text>开始测试</text>
+</view>
