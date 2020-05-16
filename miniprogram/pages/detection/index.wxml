@@ -1,15 +1,27 @@
 <view class="det-top">
-  <view class="det-top__1">{{ list[current].value }}</view>
+  <view class="det-top_item">
+    <view class="det-top_value green">{{ right }}</view>
+    <view class="det-top_desc">正确</view>
+  </view>
+  <view class="det-top_item center">
+    <view class="det-top_value blue">{{ list[current].v1 }}</view>
+    <view class="det-top_desc">当前视力</view>
+  </view>
+  <view class="det-top_item">
+    <view class="det-top_value red">{{ wrong }}</view>
+    <view class="det-top_desc">错误</view>
+  </view>
+  <!-- <view class="det-top__1">{{ list[current].value }}</view>
   <view class="det-top__2">正确：<text class="green">{{ right }}</text> 错误：<text class="red">{{ wrong }}</text></view>
   <view class="det-top__3">
     <view class="left {{ type === 'left' ? 'active' : '' }}">左眼</view>
     <view class="center">{{ eyesGlasses === '1' ? '裸眼' : '眼镜' }} {{ distance }}</view>
     <view class="right {{ type === 'right' ? 'active' : '' }}">右眼</view>
-  </view>
+  </view> -->
 </view>
 
 <view class="det-bar">
-  <view class="det-bar-item">
+  <!-- <view class="det-bar-item">
     <image wx:if="{{ mic }}" bindtap="toogleMic" src="/images/tool/mic_open.png"></image>
     <image wx:else bindtap="toogleMic" src="/images/tool/mic_close.png"></image>语音
   </view>
@@ -19,11 +31,31 @@
   <view class="det-bar-item">
     <image bindtap="shrink" src="/images/tool/down.png"></image>缩小
   </view>
-  <!-- <view class="det-bar-item">
+  <view class="det-bar-item">
     <image bindtap="backout" src="/images/tool/backout.png"></image>撤销
-  </view> -->
+  </view>
   <view class="det-bar-item">
     <image bindtap="showSetting" src="/images/tool/setting.png"></image>设置
+  </view> -->
+  <view class="det-bar_item" bindtap="answerLeft">
+    <image src="/images/detection/left{{ picType === 'E' ? '' : '_2' }}.png"></image>
+    <view class="det-bar_item-text">{{ picType === 'E' ? '向左' : '正方形' }}</view>
+  </view>
+  <view class="det-bar_item" bindtap="answerUp">
+    <image src="/images/detection/up{{ picType === 'E' ? '' : '_2' }}.png"></image>
+    <view class="det-bar_item-text">{{ picType === 'E' ? '向上' : '房子' }}</view>
+  </view>
+  <view class="det-bar_item center" bindtap="answerWrong">
+    <image src="/images/detection/close.png"></image>
+    <view class="det-bar_item-text">看不清</view>
+  </view>
+  <view class="det-bar_item" bindtap="answerRight">
+    <image src="/images/detection/right{{ picType === 'E' ? '' : '_2' }}.png"></image>
+    <view class="det-bar_item-text">{{ picType === 'E' ? '向右' : '圆形' }}</view>
+  </view>
+  <view class="det-bar_item" bindtap="answerDwon">
+    <image src="/images/detection/down{{ picType === 'E' ? '' : '_2' }}.png"></image>
+    <view class="det-bar_item-text">{{ picType === 'E' ? '向下' : '心形' }}</view>
   </view>
 </view>
 
@@ -34,16 +66,11 @@
 
 <view class="det-main">
   <image style="width: {{ list[current].size }}px; height: {{ list[current].size }}px;" src="/images/detection/{{ answer }}{{ picType === 'E' ? '' : '_2' }}.png"></image>
-  <!-- 模拟设备按钮 -->
-  <!-- <button class="btn btn-up" bindtap="answerUp">上(房子)</button>
-  <button class="btn btn-down" bindtap="answerDwon">下(心形)</button>
-  <button class="btn btn-left" bindtap="answerLeft">左(正方形)</button>
-  <button class="btn btn-right" bindtap="answerRight">右(圆形)</button> -->
 </view>
 
-<tool type="2"></tool>
+<!-- <tool type="2"></tool> -->
 
-<view class="setting-container" wx:if="{{ settingShow }}">
+<!-- <view class="setting-container" wx:if="{{ settingShow }}">
   <view class="setting-mask" bindtap="hideSetting"></view>
   <view class="setting-content">
     <view wx:if="{{ settingIconState === '1' }}" class="setting-content__1">
@@ -93,4 +120,4 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->

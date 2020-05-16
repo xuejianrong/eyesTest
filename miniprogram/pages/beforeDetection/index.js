@@ -6,9 +6,9 @@ Page({
    */
   data: {
     result: {
-      picType: 'E', // E 儿童
-      mode: 'hand', // hand voice
-      distance: '40cm', // 40cm 3m
+      picType: wx.getStorageSync('picType'), // E 儿童
+      mode: wx.getStorageSync('mic') ? 'voice' : 'hand', // hand voice
+      distance: wx.getStorageSync('distance'), // 40cm 3m
     },
     options: [
       { key: 'picType', value: 'E', name: 'E字视力表' },
@@ -60,5 +60,13 @@ Page({
     let data = {}
     data[`result.${key}`] = value
     this.setData(data)
+  },
+  start () {
+    wx.setStorageSync('picType', this.data.result.picType)
+    wx.setStorageSync('mic', this.data.result.mode === 'voice')
+    wx.setStorageSync('distance', this.data.result.distance)
+    wx.navigateTo({
+      url: '../detection/index?type=right',
+    })
   }
 })

@@ -44,6 +44,7 @@ App({
     wx.setStorage({ key: 'eyesGlasses', data: '1' }) // 1 裸眼， 2 眼镜
     wx.setStorage({ key: 'counter', data: 5 }) // 视标数量(3-10) 正确几次通过：Math.floor((counter / 2) + 1)
     wx.setStorage({ key: 'result', data: {} }) // 测试结果
+    wx.setStorage({ key: 'distance', data: '40cm' }) // 距离
     // wx.setStorage({ key: 'result', data: {"left":{"list":[{"index":0,"right":3,"wrong":0,"v1":"4.0","v2":"0.1"},{"index":1,"right":3,"wrong":0,"v1":"4.1","v2":"0.12"},{"index":2,"right":3,"wrong":0,"v1":"4.2","v2":"0.15"},{"index":3,"right":2,"wrong":3,"v1":"4.3","v2":"0.2"}],"start":0,"end":13,"distance":"2.5m","counter":5,"counterValue":3,"screenBrightness":0.8,"eyesGlasses":"1","v1":"4.2","v2":"0.15"},"date":"2020-03-06T07:03:18.012Z"} }) // 测试结果
   },
   // toogleEyesightHandle已被使用

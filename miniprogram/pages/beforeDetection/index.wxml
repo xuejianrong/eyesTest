@@ -9,7 +9,7 @@
   </view>
 </view>
 
-<view class="btn-main btn-start">
+<view class="btn-main btn-start" bindtap="start">
   <van-icon name="play" />
   <text>开始测试</text>
 </view>

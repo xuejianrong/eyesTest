@@ -627,6 +627,9 @@ Page({
   answerRight () {
     this.response('right')
   },
+  answerWrong () {
+    this.response('')
+  },
 
   // 蓝牙相关
   // 初始化蓝牙模块
