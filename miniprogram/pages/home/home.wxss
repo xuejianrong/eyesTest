@@ -39,7 +39,7 @@
 }
 .home-top-info_avatar {
   position: absolute;
-  left: calc(50% - 99rpx);
+  left: calc(50% - 114rpx);
   top: -44rpx;
   height: 218rpx;
   width: 218rpx;

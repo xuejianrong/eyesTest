@@ -272,26 +272,32 @@ const bluetooth = {
   // 指令
   closeLeftEye (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeLeftEye)
+    // 添加收到蓝牙消息的回调
     cb && typeof cb == 'function' && this.subs.push(cb)
   },
   closeRightEye (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeRightEye)
+    // 添加收到蓝牙消息的回调
     cb && typeof cb == 'function' && this.subs.push(cb)
   },
   openLaser (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.openLaser)
+    // 添加收到蓝牙消息的回调
     cb && typeof cb == 'function' && this.subs.push(cb)
   },
   closeLaser (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeLaser)
-    cb && typeof cb == 'function' && this.subs.push(cb)
+    // 移除收到蓝牙消息的回调
+    this.subs = this.subs.filter(item => item !== cb)
   },
   openDistance (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.openDistance)
+    // 添加收到蓝牙消息的回调
     cb && typeof cb == 'function' && this.subs.push(cb)
   },
   closeDistance (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeDistance)
+    // 移除收到蓝牙消息的回调
     this.subs = this.subs.filter(item => item !== cb)
   },
 }

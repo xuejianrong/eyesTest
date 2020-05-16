@@ -4,6 +4,23 @@ const util = require('../../utils/utils.js')
 
 import bluebooth from '../../utils/bluetooth.js'
 
+function showLaserControl () {
+  wx.showModal({
+    title: '激光校准',
+    cancelText: '打开激光',
+    confirmText: '关闭激光',
+    confirmColor: '#000',
+    success: function (res) {
+      if (res.confirm) {
+        bluebooth.closeLaser()
+      }
+      if (res.cancel) {
+        bluebooth.openLaser()
+      }
+    }
+  })
+}
+
 Page({
 
   /**
@@ -20,12 +37,12 @@ Page({
     right_v2: '',
     right_plus: false,
     tabs: [
-      { url: '/pages/beforeDetection/index', name: '视力检测' },
-      { url: '/pages/getHeight/index', name: '身高测量' },
-      { url: '', name: '激光校准' },
-      { url: '/pages/userList/index', name: '用户管理' },
-      { url: '', name: '系统设置' },
-      { url: '', name: '联系我们' },
+      { name: '视力检测', url: '/pages/beforeDetection/index' },
+      { name: '身高测量', url: '/pages/getHeight/index' },
+      { name: '激光校准', handler: showLaserControl },
+      { name: '用户管理', url: '/pages/userList/index' },
+      { name: '系统设置', url: '' },
+      { name: '联系我们', url: '' },
     ]
   },
 
@@ -154,8 +171,14 @@ Page({
   },
   tapTab(e) {
     const { dataset } = e.currentTarget
-    wx.navigateTo({
-      url: this.data.tabs[dataset.index].url
-    })
+    let tab = this.data.tabs[dataset.index]
+    if (tab.handler) {
+      tab.handler()
+    }
+    if (tab.url) {
+      wx.navigateTo({
+        url: this.data.tabs[dataset.index].url
+      })
+    }
   }
 })
