@@ -26,12 +26,15 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    console.log('onHide')
     bluebooth.closeDistance(this.onMsg)
   },
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log('onUnload')
+    bluebooth.closeDistance(this.onMsg)
   },
   onMsg (res) {
     const validDistance = /^550581/.test(res) // 550581 开头的才是测距数据
