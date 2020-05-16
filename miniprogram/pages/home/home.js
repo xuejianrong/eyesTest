@@ -42,7 +42,7 @@ Page({
       { name: '激光校准', handler: showLaserControl },
       { name: '用户管理', url: '/pages/userList/index' },
       { name: '系统设置', handler: 'showSetting' },
-      { name: '联系我们', url: '' },
+      { name: '联系我们', url: '/pages/contact/index' },
     ],
     settingShow: false,
     settingIconState: '1', // 1/2/3/4/5

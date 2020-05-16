@@ -104,6 +104,12 @@
 					"name": "getHeight",
 					"pathName": "pages/getHeight/index",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/contact/index",
+					"pathName": "pages/contact/index",
+					"scene": null
 				}
 			]
 		}

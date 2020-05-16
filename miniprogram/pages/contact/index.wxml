@@ -1,0 +1,7 @@
+<view class="contact-container">
+  <image class="contact-top-pic" mode="widthFix" src="../../images/contact/top.png"></image>
+  <view class="contact-desc">
+    深圳大希创新科技有限公司专业从事全数字红外同声传译系统、全数字有线会议系统、全数字红外会议系统、双屏数字会议系统、全数字红外教育扩音系统，智能直播麦克风、视力检测等产品的研发和销售。大希创新依靠强大的研发团队、严格的品质控制，全力为客户提供更优质的数字声音和图像，为客户提供更稳定可靠的无线和有线音视频传输。目前已经获得十多项该方面的发明、实用新型、外观和软件著作专利，给多家大公司提供OEM和ODM服务。
+  </view>
+  <view class="contact-desc">联系电话：139-9858-3315、135-3834-6631</view>
+</view>
