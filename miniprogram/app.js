@@ -1,4 +1,6 @@
 //app.js
+import bluebooth from './utils/bluetooth.js'
+
 App({
   onLaunch: function () {
     if (!wx.cloud) {
@@ -13,6 +15,8 @@ App({
         traceUser: true,
       })
     }
+
+    bluebooth.init()
 
     this.globalData = {
       currentIndex: 0,

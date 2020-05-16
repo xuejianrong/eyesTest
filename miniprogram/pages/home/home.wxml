@@ -35,3 +35,48 @@
     </view>
   </view>
 </view>
+
+<view class="setting-container" wx:if="{{ settingShow }}">
+  <view class="setting-mask" bindtap="hideSetting"></view>
+  <view class="setting-content">
+    <view wx:if="{{ settingIconState === '1' }}" class="setting-content__1">
+      <image bindtap="eyesGlassesHandle" data-v="1" src="/images/detection/icon1__1_{{ eyesGlasses === '1' ? '1' : '2' }}.png"></image>
+      <image bindtap="eyesGlassesHandle" data-v="2" src="/images/detection/icon1__2_{{ eyesGlasses === '2' ? '1' : '2' }}.png"></image>
+    </view>
+    <view wx:if="{{ settingIconState === '3' }}" class="setting-content__3">
+      <view class="title">开始视标 <text>{{ startValue }}</text></view>
+      <slider min="{{ 4.0 }}" max="{{ 5.3 }}" step="{{ 0.1 }}" value="{{ start * 0.1 + 4 }}" activeColor="#018fff" block-size="{{ 25 }}" bindchanging="startChangeHandle"></slider>
+      <view class="title">结束视标 <text>{{ endValue }}</text></view>
+      <slider min="{{ 4.0 }}" max="{{ 5.3 }}" step="{{ 0.1 }}" value="{{ end * 0.1 + 4 }}" activeColor="#018fff" block-size="{{ 25 }}" bindchanging="endChangeHandle"></slider>
+    </view>
+    <view wx:if="{{ settingIconState === '4' }}" class="setting-content__3 setting-content__4">
+      <view class="title">视标数量 <text>{{ counter }} (正确{{ counterValue }}个通过)</text></view>
+      <slider min="{{ 3 }}" max="{{ 10 }}" value="{{ counter }}" activeColor="#018fff" block-size="{{ 25 }}" bindchanging="counterChangeHandle"></slider>
+    </view>
+    <view wx:if="{{ settingIconState === '5' }}" class="setting-content__3 setting-content__5">
+      <view class="title">检测亮度</view>
+      <slider min="{{ 0 }}" max="{{ 1 }}" step="{{ 0.001 }}" value="{{ screenBrightness }}" activeColor="#018fff" block-size="{{ 25 }}" bindchanging="brightnessChangeHandle">
+        <image class="img img1" src="/images/detection/brightness-.png"></image>
+        <image class="img img2" src="/images/detection/brightness+.png"></image>
+      </slider>
+    </view>
+    <view class="setting-content__bar" catchtap="catchHandle">
+      <view class="setting-content__item" bindtap="toogleSettingState" data-state="1">
+        <image src="/images/detection/icon1_{{ settingIconState === '1' ? '1' : '2' }}.png"></image>
+        <view class="{{ settingIconState === '1' ? 'active' : '' }}">裸眼眼睛</view>
+      </view>
+      <view class="setting-content__item" bindtap="toogleSettingState" data-state="3">
+        <image src="/images/detection/icon3_{{ settingIconState === '3' ? '1' : '2' }}.png"></image>
+        <view class="{{ settingIconState === '3' ? 'active' : '' }}">视标范围</view>
+      </view>
+      <view class="setting-content__item" bindtap="toogleSettingState" data-state="4">
+        <image src="/images/detection/icon4_{{ settingIconState === '4' ? '1' : '2' }}.png"></image>
+        <view class="{{ settingIconState === '4' ? 'active' : '' }}">视标数量</view>
+      </view>
+      <view class="setting-content__item" bindtap="toogleSettingState" data-state="5">
+        <image src="/images/detection/icon5_{{ settingIconState === '5' ? '1' : '2' }}.png"></image>
+        <view class="{{ settingIconState === '5' ? 'active' : '' }}">检测亮度</view>
+      </view>
+    </view>
+  </view>
+</view>
