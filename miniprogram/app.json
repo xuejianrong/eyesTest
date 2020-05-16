@@ -10,7 +10,8 @@
     "pages/result/index",
     "pages/find/index",
     "pages/userList/index",
-    "pages/beforeDetection/index"
+    "pages/beforeDetection/index",
+    "pages/getHeight/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -89,6 +89,7 @@
 					"id": -1,
 					"name": "userList",
 					"pathName": "pages/userList/index",
+					"query": "",
 					"scene": null
 				},
 				{
@@ -96,6 +97,12 @@
 					"name": "beforeDetection",
 					"pathName": "pages/beforeDetection/index",
 					"query": "type=add",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "getHeight",
+					"pathName": "pages/getHeight/index",
 					"scene": null
 				}
 			]

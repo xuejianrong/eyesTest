@@ -10,19 +10,28 @@ export const getOpenid = () => wx.cloud.callFunction({
 export const getUsers = openid => db.collection('users').get()
 
 // 新增用户
-export const addUser = data => db.collection('users').add({
-  data: data || {
-    name: 'admin',
-    avatar: '',
-    sex: 'man',
-    birth: '',
-    school: '',
-    grade: ''
+export const addUser = info => {
+  let data = {}
+  if (info) {
+    data = { ...info, updateTime: new Date().getTime() }
+  } else {
+    data = {
+      name: 'admin',
+      avatar: '',
+      sex: 'man',
+      birth: '',
+      school: '',
+      grade: '',
+      updateTime: new Date().getTime()
+    }
   }
-})
+  return db.collection('users').add({
+    data
+  })
+}
 
 // 更新用户数据
-export const updateUser = (id, data) => db.collection('users').doc(id).update({ data })
+export const updateUser = (id, data) => db.collection('users').doc(id).update({ data, updateTime: new Date().getTime() })
 
 // 删除用户
 export const deleteUser = id => db.collection('users').doc(id).remove()

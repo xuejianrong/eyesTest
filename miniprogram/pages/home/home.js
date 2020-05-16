@@ -2,6 +2,8 @@ const app = getApp()
 const api = require('../../apis/index.js')
 const util = require('../../utils/utils.js')
 
+import bluebooth from '../../utils/bluetooth.js'
+
 Page({
 
   /**
@@ -14,12 +16,12 @@ Page({
     left_v2: '',
     left_plus: false,
     date: '',
-    right_v1: '', 
+    right_v1: '',
     right_v2: '',
     right_plus: false,
     tabs: [
       { url: '/pages/beforeDetection/index', name: '视力检测' },
-      { url: '', name: '身高测量' },
+      { url: '/pages/getHeight/index', name: '身高测量' },
       { url: '', name: '激光校准' },
       { url: '/pages/userList/index', name: '用户管理' },
       { url: '', name: '系统设置' },
@@ -31,7 +33,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    bluebooth.init()
   },
 
   /**

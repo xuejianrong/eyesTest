@@ -1,0 +1,19 @@
+<view class="get-height-top">
+  <view class="get-height-avatar">
+    <image src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
+  </view>
+  <view class="get-height-name">{{ currentUser.name }}</view>
+  <van-cell-group>
+    <van-cell title="身高" value="{{ currentUser.height }}cm" border="{{ false }}" />
+  </van-cell-group>
+  <van-cell-group>
+    <van-cell title="体重" value="{{ currentUser.weight }}kg" border="{{ false }}" />
+  </van-cell-group>
+  <van-cell-group>
+    <van-cell title="出生年月" value="{{ currentUser.birth }}" border="{{ false }}" />
+  </van-cell-group>
+  <view class="get-height-title">测量身高</view>
+  <view class="get-height-value">{{ value }}<text>CM</text></view>
+</view>
+
+<view class="btn-main" bindtap="save">保存身高</view>
