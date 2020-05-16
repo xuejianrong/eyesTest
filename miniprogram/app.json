@@ -14,9 +14,9 @@
     "pages/getHeight/index"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#f3f3f3",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#f3f3f3",
     "navigationBarTitleText": "智能视力检测",
     "navigationBarTextStyle": "black"
   },
