@@ -6,9 +6,9 @@ Page({
    */
   data: {
     result: {
-      picType: wx.getStorageSync('picType'), // E 儿童
-      mode: wx.getStorageSync('mic') ? 'voice' : 'hand', // hand voice
-      distance: wx.getStorageSync('distance'), // 40cm 3m
+      picType: 'E', // E 儿童
+      mode: 'voice', // hand voice
+      distance: '40cm', // 40cm 3m
     },
     options: [
       { key: 'picType', value: 'E', name: 'E字视力表' },
@@ -24,7 +24,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const data = {
+      picType: wx.getStorageSync('picType'),
+      mode: wx.getStorageSync('mic') ? 'voice' : 'hand',
+      distance: wx.getStorageSync('distance'),
+    }
+    this.setData({
+      result: data
+    })
   },
 
   /**
