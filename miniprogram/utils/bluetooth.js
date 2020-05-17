@@ -212,25 +212,6 @@ const bluetooth = {
       this.subs.forEach(cb => {
         cb(msg)
       })
-      // switch (msg) {
-      //   case '55038202dc':
-      //     console.log('点击了向上')
-      //     break;
-      //   case '55038203dd':
-      //     console.log('点击了向右')
-      //     break;
-      //   case '55038204de':
-      //     console.log('点击了向下')
-      //     break;
-      //   case '55038201db':
-      //     console.log('点击了向左')
-      //     break;
-      //   case '55038200da':
-      //     console.log('点击了确定')
-      //     break;
-      //   default:
-      //     break;
-      // }
     })
   },
   // 向低功耗蓝牙设备特征值中写入二进制数据。注意：必须设备的特征值支持 write 才可以成功调用。
@@ -273,33 +254,39 @@ const bluetooth = {
   closeLeftEye (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeLeftEye)
     // 添加收到蓝牙消息的回调
-    cb && typeof cb == 'function' && this.subs.push(cb)
+    this.addSub(cb)
   },
   closeRightEye (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeRightEye)
     // 添加收到蓝牙消息的回调
-    cb && typeof cb == 'function' && this.subs.push(cb)
+    this.addSub(cb)
   },
   openLaser (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.openLaser)
     // 添加收到蓝牙消息的回调
-    cb && typeof cb == 'function' && this.subs.push(cb)
+    this.addSub(cb)
   },
   closeLaser (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeLaser)
     // 移除收到蓝牙消息的回调
-    this.subs = this.subs.filter(item => item !== cb)
+    this.removeSub(cb)
   },
   openDistance (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.openDistance)
     // 添加收到蓝牙消息的回调
-    cb && typeof cb == 'function' && this.subs.push(cb)
+    this.addSub(cb)
   },
   closeDistance (cb) {
     this.writeBLECharacteristicValue(this.deviceMsgs.closeDistance)
     // 移除收到蓝牙消息的回调
-    this.subs = this.subs.filter(item => item !== cb)
+    this.removeSub(cb)
   },
+  addSub (sub) {
+    sub && typeof sub == 'function' && this.subs.push(sub)
+  },
+  removeSub (sub) {
+    this.subs = this.subs.filter(item => item !== sub)
+  }
 }
 
 export default bluetooth

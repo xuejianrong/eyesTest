@@ -1,4 +1,6 @@
 // miniprogram/pages/detection/index.js
+import bluetooth from '../../utils/bluetooth'
+
 let app = getApp()
 const api = require('../../apis/index.js')
 const answerKey = require('../../utils/answer-key.js')
@@ -31,7 +33,7 @@ Page({
     settingShow: false,
     settingIconState: '1', // 1/2/3/4/5
     eyesGlasses: '1', // 1 裸眼/2 眼镜
-    distance: '2.5m',
+    distance: '3m',
     // iconState3: 就是start和end
     iconState4: 3,
     iconState5: 0.8,
@@ -64,10 +66,20 @@ Page({
   onLoad: function (options) {
     let _this = this
     this.setData({ type: options.type })
-    this.setData({ list: app.globalData.eyesightList })
     wx.setInnerAudioOption({
       mixWithOther: false, // 不与其他音频混播，终止其他应用或微信内的音乐
       obeyMuteSwitch: false, // (仅在 iOS 生效）是否遵循静音开关，设置为 false 之后，即使是在静音模式下，也能播放声音
+    })
+    wx.getStorage({
+      key: 'distance',
+      success: function(res) {
+        if (res.data === '40cm') {
+          _this.setData({ list: app.globalData.eyesightList_2 })
+        }
+        if (res.data === '3m') {
+          _this.setData({ list: app.globalData.eyesightList_1 })
+        }
+      },
     })
     wx.getStorage({
       key: 'mic',
@@ -107,17 +119,20 @@ Page({
     })
     // 初次加载，随机一个答案
     this.random(true)
+
+    bluetooth.addSub(this.onDeviceMsg)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    if (this.data.type === 'left') {
-      innerAudioContext_start.play()
-    } else {
-      innerAudioContext_right_start.play()
-    }
+    // 因为文件不对，不使用语音先
+    // if (this.data.type === 'left') {
+    //   innerAudioContext_start.play()
+    // } else {
+    //   innerAudioContext_right_start.play()
+    // }
   },
 
   /**
@@ -174,6 +189,7 @@ Page({
     wx.setKeepScreenOn({ keepScreenOn: false })
     // 恢复之前的亮度
     wx.setScreenBrightness({ value: this.data.oldScreenBrightness })
+    bluetooth.removeSub(this.onDeviceMsg)
   },
   // 随机图案
   random (isFirst) {
@@ -327,7 +343,7 @@ Page({
     const item = app.globalData.eyesightList[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[index].value)
-    this.data.type === 'right' && innerAudioContext_over.play()
+    // this.data.type === 'right' && innerAudioContext_over.play()
     wx.getStorage({
       key: 'result',
       success: function (res) {
@@ -359,8 +375,8 @@ Page({
           }
         })
 
-        // 测左眼，添加一条测试数据
-        if (_this.data.type === 'left') {
+        // 测右眼，添加一条测试数据
+        if (_this.data.type === 'right') {
           api.addRecord(result).then(res => {
             wx.setStorage({
               key: 'resultId',
@@ -368,8 +384,8 @@ Page({
             })
           })
         }
-        // 测右眼，更新此条数据
-        if (_this.data.type === 'right') {
+        // 测左眼，更新此条数据
+        if (_this.data.type === 'left') {
           wx.getStorage({
             key: 'resultId',
             success: function (res) {
@@ -574,5 +590,30 @@ Page({
   },
   answerWrong () {
     this.response('')
+  },
+  onDeviceMsg (msg) {
+    switch (msg) {
+        case '55038202dc':
+          console.log('点击了向上')
+          this.answerUp()
+          break;
+        case '55038203dd':
+          console.log('点击了向右')
+          this.answerRight()
+          break;
+        case '55038204de':
+          console.log('点击了向下')
+          this.answerDwon()
+          break;
+        case '55038201db':
+          console.log('点击了向左')
+          this.answerLeft()
+          break;
+        case '55038200da':
+          console.log('点击了确定')
+          break;
+        default:
+          break;
+      }
   }
 })

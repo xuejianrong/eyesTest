@@ -21,7 +21,7 @@ Page({
       key: 'result',
       success: function (res) {
         const result = res.data
-        const type = result.right ? 'right' : 'left'
+        const type = result.left ? 'left' : 'right'
         _this.setData({
           type,
           left: result.left,
@@ -29,7 +29,7 @@ Page({
           leftList: result.left ? result.left.list : [],
           rightList: result.right ? result.right.list : []
         })
-        if (type === 'right') {
+        if (type === 'left') {
           wx.setStorage({ key: 'result', data: {} })
         }
       }
@@ -63,12 +63,14 @@ Page({
   onUnload: function () {
 
   },
-  startRight () {
+  continueTest () {
     wx.redirectTo({
-      url: '../detection/index?type=right'
+      url: '../detection/index?type=left'
     })
   },
   endTest () {
-    wx.navigateBack()
+    wx.switchTab({
+      url: '/pages/home/home'
+    })
   }
 })
