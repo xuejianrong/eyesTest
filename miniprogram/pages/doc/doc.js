@@ -178,29 +178,29 @@ Page({
     });
   },
   // eyesGlasses { string } 1 裸眼 2 眼镜
-  createSimulationData: function (eyesGlasses) {
+  createSimulationData: function (eyesGlasses) {// 左右要反过来
     let categories = []
     let leftData = []
     let rightData = []
     let records = this.data['records' + eyesGlasses]
-    let hasRightData = false
+    let hasLeftData = false
     for (let i = 0; i < records.length; i++) {
       categories.push(util.dateFormat(records[i].timestamp, 'yyyy.MM.dd'))
-      leftData.push(records[i].left.v1 * 10)
+      rightData.push(records[i].right.v1 * 10)
       // 右眼数据稍微复杂，因为右眼数据可能不存在
       let rd = ''
-      if (records[i].right) {
+      if (records[i].left) {
         // 有当前下标的右眼数据
-        rd = records[i].right.v1
-        hasRightData = true
-      } else if (hasRightData) {
+        rd = records[i].left.v1
+        hasLeftData = true
+      } else if (hasLeftData) {
         // 之前有个右眼数据了
-        rd = rightData[i - 1] / 10
+        rd = leftData[i - 1] / 10
       } else {
         // 一直都没有右眼数据，则让右眼曲线与左眼的重合，让右眼曲线在曲线图上不可见
-        rd = records[i].left.v1
+        rd = records[i].right.v1
       }
-      rightData.push(rd * 10)
+      leftData.push(rd * 10)
     }
     return { categories, leftData, rightData }
   },
@@ -208,20 +208,20 @@ Page({
   updateData: function (eyesGlasses) {
     let simulationData = this.createSimulationData(eyesGlasses);
     let series = [{
-      name: '右眼',
-      data:  simulationData.rightData,
-      format: function (val, name) {
-        return (val / 10).toFixed(1)
-      },
-      color: '#f86e6a'
-    }, {
-      // 左眼放后面，有时曲线需要覆盖右眼数据
       name: '左眼',
       data: simulationData.leftData,
       format: function (val, name) {
         return (val / 10).toFixed(1)
       },
       color: '#4caf9a'
+    }, {
+      // 右眼放后面，有时曲线需要覆盖左眼数据
+      name: '右眼',
+      data:  simulationData.rightData,
+      format: function (val, name) {
+        return (val / 10).toFixed(1)
+      },
+      color: '#f86e6a'
     }]
     lineChart.updateData({
       categories: simulationData.categories,

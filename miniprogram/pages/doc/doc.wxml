@@ -4,7 +4,8 @@
   </view>
   <view class="doc-top__right">
     <view class="doc-top__name">{{ user.name }}</view>
-    <view class="doc-top__birth">出生日期 {{ user.birth }}</view>
+    <view class="doc-top__birth">身高:{{ user.height }}cm 体重:{{ user.weight }}kg</view>
+    <view class="doc-top__birth">出生日期:{{ user.birth }}</view>
   </view>
   <view class="doc-top__btn" bindtap="toogleChart">
     <van-icon wx:if="{{ showChart }}" name="arrow-up" />

@@ -38,7 +38,7 @@ page {
   color: #fff;
   font-size: 26rpx;
   line-height: 26rpx;
-  margin-top: 43rpx;
+  margin-top: 21rpx;
 }
 .doc-top__btn {
   position: absolute;
