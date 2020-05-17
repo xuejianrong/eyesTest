@@ -327,7 +327,7 @@ Page({
   },
   // 下一题
   next (nextIndex, right, wrong) {
-    const item = app.globalData.eyesightList[this.data.current]
+    const item = this.data.list[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     this.setData({
       current: nextIndex,
@@ -340,7 +340,7 @@ Page({
   over (index, right, wrong) {
     this.data.isOver = true
     let _this = this
-    const item = app.globalData.eyesightList[this.data.current]
+    const item = this.data.list[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[index].value)
     // this.data.type === 'right' && innerAudioContext_over.play()
