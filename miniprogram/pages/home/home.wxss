@@ -112,7 +112,7 @@
 }
 .home-top-info_value2 {
   color: #3da2fe;
-  font-size: 90rpx;
+  font-size: 70rpx;
   display: inline-block;
   width: 200rpx;
   text-align: center;

@@ -18,13 +18,13 @@
     <view class="home-top-info_leftEye">
       <view class="home-top-info_title2">
         左眼视力
-        <text class="home-top-info_value2">{{ left_v1 || '-' }} {{ left_plus ? '+' : '' }}</text>
+        <text class="home-top-info_value2">{{ left_v1 || '-' }} {{ left_plus ? '+' : '' }}+</text>
       </view>
     </view>
     <view class="home-top-info_rightEye">
       <view class="home-top-info_title2">
         右眼视力
-        <text class="home-top-info_value2">{{ right_v1 || '-' }} {{ right_plus ? '+' : '' }}</text>
+        <text class="home-top-info_value2">{{ right_v1 || '-' }} {{ right_plus ? '+' : '' }}+</text>
       </view>
     </view>
     <view class="home-top-info_lastTime">最后一次检测 {{ date }}</view>
