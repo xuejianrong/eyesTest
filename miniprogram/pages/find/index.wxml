@@ -1,2 +1,6 @@
-<!--miniprogram/pages/find/index.wxml-->
-<text>miniprogram/pages/find/index.wxml</text>
+<view class="newList">
+  <view class="item" wx:for="{{ list }}" wx:key="index">
+    <image src="{{ item.image }}" mode="widthFix"></image>
+    <view class="desc">{{ item.desc }}</view>
+  </view>
+</view>
