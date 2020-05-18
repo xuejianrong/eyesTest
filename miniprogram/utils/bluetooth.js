@@ -136,6 +136,10 @@ const bluetooth = {
     wx.createBLEConnection({
       deviceId,
       success: (res) => {
+        wx.showToast({
+          icon: 'none',
+          title: '成功连接设备'
+        })
         this.connected = true
         this.name = name
         this.deviceId = deviceId
@@ -224,6 +228,7 @@ const bluetooth = {
     this._discoveryStarted = false
   },
   sendData(data) {
+    let _this = this
     let dataBuffer = new ArrayBuffer(data.length)
     let dataView = new DataView(dataBuffer)
     for (var i = 0; i < data.length; i++) {
@@ -242,6 +247,12 @@ const bluetooth = {
         console.log('message发送成功')
       },
       fail: function (res) {
+        wx.showToast({
+          icon: 'none',
+          title: '请确认与设备的正常连接'
+        })
+        _this.closeBLEConnection()
+        _this.startBluetoothDevicesDiscovery()
         console.log('message发送失败', res)
       },
       complete: function (res) {
