@@ -17,16 +17,17 @@
 
 <view class="doc-content" wx:if="{{ records.length > 0 && !loading }}">
   <view class="doc-charts" wx:if="{{ showChart }}">
-    <view class="eyes-glasses" bindtap="toogleTabState">
-      <view class="eyes-glasses-item {{ tabState === '1' ? 'active' : '' }}" data-state="1">裸眼</view>
-      <view class="eyes-glasses-item {{ tabState === '2' ? 'active' : '' }}" data-state="2">眼镜</view>
-      <view class="eyes-glasses-item {{ tabState === '3' ? 'active' : '' }}" data-state="3">身高</view>
+    <view class="eyes-glasses">
+      <view class="eyes-glasses-item {{ tabState === '1' ? 'active' : '' }}" bindtap="toogleTabState" data-state="1">裸眼</view>
+      <view class="eyes-glasses-item {{ tabState === '2' ? 'active' : '' }}" bindtap="toogleTabState" data-state="2">眼镜</view>
+      <view class="eyes-glasses-item {{ tabState === '3' ? 'active' : '' }}" bindtap="toogleTabState" data-state="3">身高</view>
     </view>
     <view class="left-right">
       <text class="left-right-l">左</text>
       <text class="left-right-r">右</text>
     </view>
-    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchend="touchEndHandler" bindtouchmove="moveHandler" bindtouchstart="touchHandler" disableScroll="{{ false }}"></canvas>
+    <canvas hidden="{{ tabState === '3' }}" canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchend="touchEndHandler" bindtouchmove="moveHandler" bindtouchstart="touchHandler" disableScroll="{{ false }}"></canvas>
+    <canvas hidden="{{ tabState !== '3' }}" canvas-id="lineCanvas2" disable-scroll="true" class="canvas" bindtouchend="touchEndHandler" bindtouchmove="moveHandler" bindtouchstart="touchHandler" disableScroll="{{ false }}"></canvas>
   </view>
   <view class="date-item" wx:for="{{ records }}" wx:key="index">
     <view class="date-item__title">{{ item.dateStr }}</view>

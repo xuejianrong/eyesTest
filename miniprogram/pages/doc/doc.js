@@ -4,6 +4,7 @@ const api = require('../../apis/index.js')
 const util = require('../../utils/utils.js')
 const wxCharts = require('../../utils/wxcharts-min.js')
 let lineChart = null;
+let lineChart2 = null;
 Page({
 
   /**
@@ -25,6 +26,7 @@ Page({
    */
   onLoad: function (options) {
     this.chartInit()
+    this.chartInit2()
   },
 
   /**
@@ -65,7 +67,7 @@ Page({
       api.getHeightRecords(app.globalData.currentUser._id)
       .then(res => {
         const records = res.result.data
-        this.setData({ heightRecords: this.dealData(records), loading: false })
+        this.setData({ heightRecords: records, loading: false })
       })
     }
   },
@@ -96,8 +98,8 @@ Page({
   dealData (data) {
     const list = data.map(item => ({
       ...item,
-      dateStr: util.dateFormat(item.timestamp || item.updateTime, 'yyyy年MM月'),
-      dateStr2: util.dateFormat(item.timestamp || item.updateTime, 'dd/hh:mm')
+      dateStr: util.dateFormat(item.timestamp, 'yyyy年MM月'),
+      dateStr2: util.dateFormat(item.timestamp, 'dd/hh:mm')
     }))
     return list.reduce((prev, next) => {
       const matchIndex = prev.findIndex(item => item.dateStr === next.dateStr)
@@ -163,8 +165,51 @@ Page({
       legend: false
     })
   },
+  chartInit2 () {
+    let windowWidth = 320;
+    try {
+      let res = wx.getSystemInfoSync();
+      windowWidth = res.windowWidth;
+    } catch (e) {
+      console.error('getSystemInfoSync failed!');
+    }
+    let simulationData = this.createSimulationData3();
+    lineChart2 = new wxCharts({
+      canvasId: 'lineCanvas2',
+      type: 'line',
+      categories: simulationData.categories,
+      animation: true,
+      // background: '#f5f5f5',
+      series: [{
+        name: '身高(cm)',
+        data: simulationData.data,
+        color: '#4caf9a'
+      }],
+      xAxis: {
+        disableGrid: true,
+        type: 'calibration'
+      },
+      yAxis: {
+        title: '',
+        min: 0,
+        max: 220
+      },
+      width: windowWidth * 0.813,
+      height: 200,
+      dataLabel: false,
+      dataPointShape: true,
+      enableScroll: true,
+      legend: false
+    })
+  },
   touchHandler: function (e) {
     lineChart.showToolTip(e, {
+      // background: '#7cb5ec',
+      format: function (item, category) {
+        return category + ' ' + item.name + ':' + item.data 
+      }
+    });
+    lineChart2.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
         return category + ' ' + item.name + ':' + item.data 
@@ -173,12 +218,19 @@ Page({
   },
   touchHandler: function(t) {
     lineChart.scrollStart(t)
+    lineChart2.scrollStart(t)
   },
   moveHandler: function(t) {
     lineChart.scroll(t)
+    lineChart2.scroll(t)
   },
   touchEndHandler: function(t) {
     lineChart.scrollEnd(t), lineChart.showToolTip(t, {
+      format: function(t, e) {
+        return e + " " + t.name + ":" + t.data
+      }
+    });
+    lineChart2.scrollEnd(t), lineChart.showToolTip(t, {
       format: function(t, e) {
         return e + " " + t.name + ":" + t.data
       }
@@ -211,6 +263,16 @@ Page({
     }
     return { categories, leftData, rightData }
   },
+  createSimulationData3 : function (state) {
+    let categories = []
+    let data = []
+    let records = this.data['heightRecords']
+    for (let i = 0; i < records.length; i++) {
+      categories.push(util.dateFormat(records[i].updateTime, 'yyyy.MM.dd'))
+      data.push(records[i].height)
+    }
+    return { categories, data }
+  },
   // state { string } 1 裸眼 2 眼镜 3 身高
   updateData: function (state) {
     if (state === '1' || state === '2') {
@@ -237,5 +299,17 @@ Page({
       })
     }
     // TODO 处理身高数据 this.data.heightRecords
+    if (state === '3') {
+      let simulationData = this.createSimulationData3(state);
+      let series = [{
+        name: '身高(cm)',
+        data: simulationData.data,
+        color: '#4caf9a'
+      }]
+      lineChart2.updateData({
+        categories: simulationData.categories,
+        series: series
+      })
+    }
   },
 })

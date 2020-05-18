@@ -61,8 +61,10 @@ export const getRecords = uid => wx.cloud.callFunction({
 
 // 新增测量身高记录
 export const addHeightRecord = data => {
-  return db.collection('records').add({ data, updateTime: new Date().getTime() }).then(() => {
-    return updateRecord(data.uid, { height: data.height })
+  return db.collection('height-records').add({
+    data: { ...data, updateTime: new Date().getTime() }
+  }).then(() => {
+    return updateUser(data.uid, { height: data.height })
   })
 }
 
