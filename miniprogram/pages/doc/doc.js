@@ -15,8 +15,9 @@ Page({
     records: [],
     records1: [], // 裸眼数据
     records2: [], // 眼镜数据
+    heightRecords: [], // 身高数据
     loading: true,
-    eyesGlasses: '1'
+    tabState: '1'
   },
 
   /**
@@ -61,6 +62,11 @@ Page({
           return item.left.eyesGlasses === '2'
         })
       })
+      api.getHeightRecords(app.globalData.currentUser._id)
+      .then(res => {
+        const records = res.result.data
+        this.setData({ heightRecords: this.dealData(records), loading: false })
+      })
     }
   },
 
@@ -79,18 +85,19 @@ Page({
   },
   toogleChart () {
     this.setData({ showChart: !this.data.showChart })
-    this.updateData(this.data.eyesGlasses)
+    this.updateData(this.data.tabState)
   },
-  toogleEyesGlasses () {
-    let eyesGlasses = this.data.eyesGlasses === '1' ? '2' : '1'
-    this.updateData(eyesGlasses)
-    this.setData({ eyesGlasses })
+  toogleTabState (e) {
+    const { dataset } = e.currentTarget
+    let tabState = dataset.state
+    this.updateData(tabState)
+    this.setData({ tabState })
   },
   dealData (data) {
     const list = data.map(item => ({
       ...item,
-      dateStr: util.dateFormat(item.timestamp, 'yyyy年MM月'),
-      dateStr2: util.dateFormat(item.timestamp, 'dd/hh:mm')
+      dateStr: util.dateFormat(item.timestamp || item.updateTime, 'yyyy年MM月'),
+      dateStr2: util.dateFormat(item.timestamp || item.updateTime, 'dd/hh:mm')
     }))
     return list.reduce((prev, next) => {
       const matchIndex = prev.findIndex(item => item.dateStr === next.dateStr)
@@ -204,28 +211,31 @@ Page({
     }
     return { categories, leftData, rightData }
   },
-  // eyesGlasses { string } 1 裸眼 2 眼镜
-  updateData: function (eyesGlasses) {
-    let simulationData = this.createSimulationData(eyesGlasses);
-    let series = [{
-      name: '左眼',
-      data: simulationData.leftData,
-      format: function (val, name) {
-        return (val / 10).toFixed(1)
-      },
-      color: '#4caf9a'
-    }, {
-      // 右眼放后面，有时曲线需要覆盖左眼数据
-      name: '右眼',
-      data:  simulationData.rightData,
-      format: function (val, name) {
-        return (val / 10).toFixed(1)
-      },
-      color: '#f86e6a'
-    }]
-    lineChart.updateData({
-      categories: simulationData.categories,
-      series: series
-    })
+  // state { string } 1 裸眼 2 眼镜 3 身高
+  updateData: function (state) {
+    if (state === '1' || state === '2') {
+      let simulationData = this.createSimulationData(state);
+      let series = [{
+        name: '左眼',
+        data: simulationData.leftData,
+        format: function (val, name) {
+          return (val / 10).toFixed(1)
+        },
+        color: '#4caf9a'
+      }, {
+        // 右眼放后面，有时曲线需要覆盖左眼数据
+        name: '右眼',
+        data:  simulationData.rightData,
+        format: function (val, name) {
+          return (val / 10).toFixed(1)
+        },
+        color: '#f86e6a'
+      }]
+      lineChart.updateData({
+        categories: simulationData.categories,
+        series: series
+      })
+    }
+    // TODO 处理身高数据 this.data.heightRecords
   },
 })

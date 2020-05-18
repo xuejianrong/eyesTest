@@ -17,9 +17,10 @@
 
 <view class="doc-content" wx:if="{{ records.length > 0 && !loading }}">
   <view class="doc-charts" wx:if="{{ showChart }}">
-    <view class="eyes-glasses" bindtap="toogleEyesGlasses">
-      <view class="eyes-glasses-item {{ eyesGlasses === '1' ? 'active' : '' }}">裸眼</view>
-      <view class="eyes-glasses-item {{ eyesGlasses === '2' ? 'active' : '' }}">眼镜</view>
+    <view class="eyes-glasses" bindtap="toogleTabState">
+      <view class="eyes-glasses-item {{ tabState === '1' ? 'active' : '' }}" data-state="1">裸眼</view>
+      <view class="eyes-glasses-item {{ tabState === '2' ? 'active' : '' }}" data-state="2">眼镜</view>
+      <view class="eyes-glasses-item {{ tabState === '3' ? 'active' : '' }}" data-state="3">身高</view>
     </view>
     <view class="left-right">
       <text class="left-right-l">左</text>

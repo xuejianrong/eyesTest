@@ -65,9 +65,8 @@ Page({
       cancelText: '继续测量',
       confirmText: '保存',
       success: function (res) {
-        console.log(res)
         if (res.confirm) {
-          api.updateUser(_this.data.currentUser._id, { height: _this.data.value }).then(res => {
+          api.addHeightRecord({uid: _this.data.currentUser._id,  height: _this.data.value }).then(res => {
             wx.switchTab({ url: '/pages/home/home' })
           })
         }

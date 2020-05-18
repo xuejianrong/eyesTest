@@ -58,3 +58,16 @@ export const getRecords = uid => wx.cloud.callFunction({
   name: 'getRecords',
   data: { uid }
 })
+
+// 新增测量身高记录
+export const addHeightRecord = data => {
+  return db.collection('records').add({ data, updateTime: new Date().getTime() }).then(() => {
+    return updateRecord(data.uid, { height: data.height })
+  })
+}
+
+// 查询所有测试记录
+export const getHeightRecords = uid => wx.cloud.callFunction({
+  name: 'getHeightRecords',
+  data: { uid }
+})
