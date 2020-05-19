@@ -1,5 +1,5 @@
 <view class="newList">
-  <view class="item" wx:for="{{ list }}" wx:key="index">
+  <view class="item" wx:for="{{ list }}" wx:key="index" bindtap="openDetail" data-index="{{ index }}">
     <image src="{{ item.image }}" mode="widthFix"></image>
     <view class="desc">{{ item.desc }}</view>
   </view>

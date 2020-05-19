@@ -11,7 +11,8 @@
     "pages/userList/index",
     "pages/beforeDetection/index",
     "pages/getHeight/index",
-    "pages/contact/index"
+    "pages/contact/index",
+    "pages/find/detail"
   ],
   "window": {
     "backgroundColor": "#f3f3f3",
