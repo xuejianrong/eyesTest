@@ -1,18 +1,23 @@
-// miniprogram/pages/contact/index.js
+const api = require('../../apis/index.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    phoneStr: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    api.getSetting().then(res => {
+      this.setData({
+        phoneStr: res.result.contactNums.join('、')
+      })
+    })
   },
 
   /**

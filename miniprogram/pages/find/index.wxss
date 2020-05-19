@@ -7,10 +7,12 @@
   overflow: hidden;
   margin-bottom: 33rpx;
 }
-.newList .item image {
+.newList .item .banner {
   width: 100%;
+  height: 220rpx;
+  font-size: 0;
 }
-.newList .desc {
+.newList .title {
   padding: 10rpx 30rpx;
   font-size: 26rpx;
   color: #000;

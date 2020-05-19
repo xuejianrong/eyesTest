@@ -1,3 +1,8 @@
-<image class="banner" mode="widthFix" src="{{ detail.image }}"></image>
-
-<view class="desc">{{ detail.desc }}</view>
+<view class="container">
+  <view class="title">{{ detail.title }}</view>
+  <block wx:for="{{ list }}" wx:key="index">
+    <view wx:if="{{ item.type === 'text' }}" class="text">{{ item.content }}</view>
+    <image wx:if="{{ item.type === 'img' }}" class="img" src="{{ item.content }}" mode="widthFix"></image>
+    <view wx:if="{{ item.type === 'h2' }}" class="h2">{{ item.content }}<text wx:if="{{ item.desc }}" class="text">{{ item.desc }}</text></view>
+  </block>
+</view>

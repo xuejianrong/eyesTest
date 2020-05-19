@@ -1,6 +1,6 @@
 <view class="newList">
   <view class="item" wx:for="{{ list }}" wx:key="index" bindtap="openDetail" data-index="{{ index }}">
-    <image src="{{ item.image }}" mode="widthFix"></image>
-    <view class="desc">{{ item.desc }}</view>
+    <image class="banner" src="{{ item.banner }}" mode="aspectFill"></image>
+    <view class="title">{{ item.title }}</view>
   </view>
 </view>

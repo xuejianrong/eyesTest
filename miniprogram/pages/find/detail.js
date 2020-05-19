@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detail: {}
+    detail: {},
+    list: []
   },
 
   /**
@@ -14,7 +15,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      detail: list[options.index]
+      detail: list[options.index],
+      list: list[options.index].data
     })
   },
 
