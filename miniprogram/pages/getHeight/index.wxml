@@ -1,6 +1,6 @@
 <view class="get-height-top">
   <view class="get-height-avatar">
-    <image src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
+    <image mode="aspectFill" src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
   </view>
   <view class="get-height-name">{{ currentUser.name }}</view>
   <van-cell-group>

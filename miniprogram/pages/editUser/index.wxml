@@ -3,7 +3,7 @@
   <view class="edit-user-form">
     <view class="edit-user-form_container">
       <view class="form-avatar">
-        <image bindtap="doUpload" class="avatar-image" src="{{ detail.avatar || '/images/headSwiper/user.png' }}"></image>
+        <image bindtap="doUpload" mode="aspectFill" class="avatar-image" src="{{ detail.avatar || '/images/headSwiper/user.png' }}"></image>
         <image bindtap="doUpload" class="avatar-plus" src="/images/editUser/plus.png"></image>
       </view>
       <view class="form">

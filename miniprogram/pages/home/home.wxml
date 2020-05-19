@@ -11,7 +11,7 @@
         <view class="home-top-info_value1">{{ currentUser.weight || '-' }}</view>
       </view>
       <view class="home-top-info_avatar">
-        <image src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
+        <image mode="aspectFill" src="{{ currentUser.avatar || '/images/headSwiper/user.png' }}"></image>
       </view>
       <view class="home-top-info_name">{{ currentUser.name }}</view>
     </view>

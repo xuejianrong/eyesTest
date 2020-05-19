@@ -1,6 +1,6 @@
 <view class="doc-top">
   <view class="doc-top__avatar">
-    <image src="{{ user.avatar || '/images/headSwiper/user.png' }}" ></image>
+    <image mode="aspectFill" src="{{ user.avatar || '/images/headSwiper/user.png' }}" ></image>
   </view>
   <view class="doc-top__right">
     <view class="doc-top__name">{{ user.name }}</view>

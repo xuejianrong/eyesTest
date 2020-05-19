@@ -5,7 +5,7 @@
       <view slot="left" class="cell-left">编辑</view>
       <van-cell bind:click="selectUser" data-index="{{ index }}">
         <view slot="title" class="cell-title">
-          <image class="user-avatar" src="{{ item.avatar || '/images/headSwiper/user.png' }}"></image>
+          <image class="user-avatar" mode="aspectFill" src="{{ item.avatar || '/images/headSwiper/user.png' }}"></image>
           <view class="user-name">{{ item.name }}</view>
           <view class="cell-icon">
             <van-icon name="arrow" />
