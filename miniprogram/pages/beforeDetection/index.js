@@ -17,7 +17,8 @@ Page({
       { key: 'mode', value: 'voice', name: '语音模式' },
       { key: 'distance', value: '40cm', name: '距离40cm' },
       { key: 'distance', value: '3m', name: '距离3m' }
-    ]
+    ],
+    dialogShow: false
   },
 
   /**
@@ -74,6 +75,11 @@ Page({
     wx.setStorageSync('distance', this.data.result.distance)
     wx.navigateTo({
       url: '../detection/index?type=right',
+    })
+  },
+  beforeStart () {
+    this.setData({
+      dialogShow: true
     })
   }
 })

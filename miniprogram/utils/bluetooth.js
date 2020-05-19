@@ -92,8 +92,10 @@ const bluetooth = {
   // 开始搜寻附近的蓝牙外围设备。此操作比较耗费系统资源，请在搜索并连接到设备后调用 wx.stopBluetoothDevicesDiscovery 方法停止搜索
   startBluetoothDevicesDiscovery() {
     if (this._discoveryStarted) {
+      console.log('已经开启搜寻附近的蓝牙外围设备，不需要重新开启')
       return
     }
+    console.log('开始搜寻附近的蓝牙外围设备')
     this._discoveryStarted = true
     wx.startBluetoothDevicesDiscovery({
       allowDuplicatesKey: true,
@@ -128,6 +130,19 @@ const bluetooth = {
           this.createBLEConnection(device)
         }
       })
+    })
+    this.onBLEConnectionStateChange()
+  },
+  // 监听低功耗蓝牙连接状态的改变
+  onBLEConnectionStateChange () {
+    wx.onBLEConnectionStateChange(res => {
+      const { deviceId, connected } = res
+      console.log(`设备ID:${deviceId}已${connected ? '连接' : '断开连接'}`)
+      // 如果是断开连接，就重新开始搜索设备
+      if (!connected) {
+        this.resetOptions()
+        this.startBluetoothDevicesDiscovery()
+      }
     })
   },
   // 连接低功耗蓝牙设备
@@ -225,7 +240,18 @@ const bluetooth = {
   // 关闭蓝牙模块。调用该方法将断开所有已建立的连接并释放系统资源。建议在使用蓝牙流程后，与 wx.openBluetoothAdapter 成对调用
   closeBluetoothAdapter() {
     wx.closeBluetoothAdapter()
-    this._discoveryStarted = false
+    this.resetOptions()
+  },
+  resetOptions () {
+    this.connected = false
+    this.chs = []
+    this.canWrite = false
+    this.mainDevice = null
+    this.devices = []
+    delete this._discoveryStarted
+    delete this._deviceId
+    delete this._serviceId
+    delete this._characteristicId
   },
   sendData(data) {
     let _this = this
@@ -251,8 +277,8 @@ const bluetooth = {
           icon: 'none',
           title: '请确认与设备的正常连接'
         })
-        _this.closeBLEConnection()
-        _this.startBluetoothDevicesDiscovery()
+        // _this.closeBluetoothAdapter()
+        // _this.init()
         console.log('message发送失败', res)
       },
       complete: function (res) {

@@ -55,7 +55,7 @@
   </view>
   <view class="det-bar_item" bindtap="answerDwon">
     <image src="/images/detection/down{{ picType === 'E' ? '' : '_2' }}.png"></image>
-    <view class="det-bar_item-text">{{ picType === 'E' ? '向下' : '心形' }}</view>
+    <view class="det-bar_item-text">{{ picType === 'E' ? '向下' : '苹果' }}</view>
   </view>
 </view>
 

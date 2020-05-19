@@ -65,3 +65,14 @@
   padding-left: 10rpx;
   font-size: 37rpx;
 }
+.tip {
+  padding: 40rpx 60rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+.tip-p {
+  margin: 10rpx 0;
+}
+.red {
+  color: #F56C6C;
+}

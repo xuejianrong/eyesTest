@@ -9,7 +9,22 @@
   </view>
 </view>
 
-<view class="btn-main btn-start" bindtap="start">
+<view class="btn-main btn-start" bindtap="beforeStart">
   <van-icon name="play" />
   <text>开始测试</text>
 </view>
+
+<van-dialog
+  use-slot
+  title="测试须知"
+  show="{{ dialogShow }}"
+  close-on-click-overlay="{{ true }}"
+  bind:confirm="start"
+>
+  <view class="tip">
+    <view class="tip-p">1、取坐位或者站位、正对手机，检查者眼部跟手机平行，保持手机距离<text class="red">{{ result.distance }}</text></view>
+    <view class="tip-p">2、先测右眼后测左眼，测试时请遮挡另一只眼睛</view>
+    <view class="tip-p">3、上方为视标，下方为按键区（手动模式）</view>
+    <view class="tip-p">4、根据测试提示进行回答，<text class="red">语音模式建议大声说多两遍</text></view>
+  </view>
+</van-dialog>

@@ -53,6 +53,7 @@ Page({
     bluebooth.closeDistance(this.onMsg)
     if (!this.data.value) {
       wx.showToast({
+        icon: 'none',
         title: '请先连接设备然后测量身高',
         complete: function () {
           bluebooth.openDistance(this.onMsg)

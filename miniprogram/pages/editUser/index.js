@@ -152,7 +152,8 @@ Page({
         let detail = _this.data.detail
 
         // 上传图片
-        const cloudPath = _this.data.detail._id + filePath.match(/\.[^.]+?$/)[0]
+        const cloudPath = _this.data.detail._id + new Date().getTime() + filePath.match(/\.[^.]+?$/)[0]
+        console.log(cloudPath)
         wx.cloud.uploadFile({
           cloudPath,
           filePath,
@@ -174,7 +175,6 @@ Page({
             wx.hideLoading()
           }
         })
-
       },
       fail: e => {
         console.error(e)
