@@ -55,53 +55,62 @@ const bluetooth = {
   },
   subs: [],
   init () {
+    console.log('蓝牙 init')
     this.openBluetoothAdapter()
+    this.getBluetoothAdapterState()
   },
   // 初始化蓝牙模块
   openBluetoothAdapter() {
+    console.log('初始化蓝牙模块')
+    const _this = this
     wx.openBluetoothAdapter({
       success: (res) => {
         console.log('openBluetoothAdapter success', res)
-        this.startBluetoothDevicesDiscovery()
+        _this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
         if (res.errCode === 10001) {
           wx.onBluetoothAdapterStateChange(function (res) {
             console.log('onBluetoothAdapterStateChange', res)
             if (res.available) {
-              this.startBluetoothDevicesDiscovery()
+              _this.startBluetoothDevicesDiscovery()
             }
           })
         }
+      },
+      complete: (msg) => {
+        console.log(msg)
       }
     })
   },
   // 获取本机蓝牙适配器状态
   getBluetoothAdapterState() {
+    const _this = this
     wx.getBluetoothAdapterState({
       success: (res) => {
         console.log('getBluetoothAdapterState', res)
         if (res.discovering) {
-          this.onBluetoothDeviceFound()
+          _this.onBluetoothDeviceFound()
         } else if (res.available) {
-          this.startBluetoothDevicesDiscovery()
+          _this.startBluetoothDevicesDiscovery()
         }
       }
     })
   },
   // 开始搜寻附近的蓝牙外围设备。此操作比较耗费系统资源，请在搜索并连接到设备后调用 wx.stopBluetoothDevicesDiscovery 方法停止搜索
   startBluetoothDevicesDiscovery() {
-    if (this._discoveryStarted) {
+    const _this = this
+    if (_this._discoveryStarted) {
       console.log('已经开启搜寻附近的蓝牙外围设备，不需要重新开启')
       return
     }
     console.log('开始搜寻附近的蓝牙外围设备')
-    this._discoveryStarted = true
+    _this._discoveryStarted = true
     wx.startBluetoothDevicesDiscovery({
       allowDuplicatesKey: true,
       success: (res) => {
         console.log('startBluetoothDevicesDiscovery success', res)
-        this.onBluetoothDeviceFound()
+        _this.onBluetoothDeviceFound()
       },
     })
   },
@@ -111,42 +120,45 @@ const bluetooth = {
   },
   // 监听寻找到新设备的事件
   onBluetoothDeviceFound() {
+    const _this = this
     wx.onBluetoothDeviceFound((res) => {
-      if (this.mainDevice) return
+      if (_this.mainDevice) return
       res.devices.forEach(device => {
         if (!device.name && !device.localName) {
           return
         }
-        const foundDevices = this.devices
+        const foundDevices = _this.devices
         const idx = inArray(foundDevices, 'deviceId', device.deviceId)
         if (idx === -1) {
-          this.devices[foundDevices.length] = device
+          _this.devices[foundDevices.length] = device
         } else {
-          this.devices[idx] = device
+          _this.devices[idx] = device
         }
         device.name = device.name || device.localName
         if (/^DXLD-.{4}$/.test(device.name)) {
-          this.mainDevice = device
-          this.createBLEConnection(device)
+          _this.mainDevice = device
+          _this.createBLEConnection(device)
         }
       })
     })
-    this.onBLEConnectionStateChange()
+    _this.onBLEConnectionStateChange()
   },
   // 监听低功耗蓝牙连接状态的改变
   onBLEConnectionStateChange () {
+    const _this = this
     wx.onBLEConnectionStateChange(res => {
       const { deviceId, connected } = res
       console.log(`设备ID:${deviceId}已${connected ? '连接' : '断开连接'}`)
       // 如果是断开连接，就重新开始搜索设备
       if (!connected) {
-        this.resetOptions()
-        this.startBluetoothDevicesDiscovery()
+        _this.resetOptions()
+        _this.startBluetoothDevicesDiscovery()
       }
     })
   },
   // 连接低功耗蓝牙设备
   createBLEConnection(device) {
+    const _this = this
     const { deviceId, name } = device
     wx.createBLEConnection({
       deviceId,
@@ -155,32 +167,34 @@ const bluetooth = {
           icon: 'none',
           title: '成功连接设备'
         })
-        this.connected = true
-        this.name = name
-        this.deviceId = deviceId
-        this.getBLEDeviceServices(deviceId)
+        _this.connected = true
+        _this.name = name
+        _this.deviceId = deviceId
+        _this.getBLEDeviceServices(deviceId)
       }
     })
-    this.stopBluetoothDevicesDiscovery()
+    _this.stopBluetoothDevicesDiscovery()
   },
   // 断开与低功耗蓝牙设备的连接
   closeBLEConnection() {
+    const _this = this
     wx.closeBLEConnection({
-      deviceId: this.deviceId
+      deviceId: _this.deviceId
     })
-    this.connected = false
-    this.chs = []
-    this.canWrite = false
+    _this.connected = false
+    _this.chs = []
+    _this.canWrite = false
   },
   // 获取蓝牙设备所有服务(service)
   getBLEDeviceServices(deviceId) {
+    const _this = this
     wx.getBLEDeviceServices({
       deviceId,
       success: (res) => {
         console.log('所有服务', res)
         for (let i = 0; i < res.services.length; i++) {
           if (res.services[i].isPrimary) {
-            this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+            _this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
             return
           }
         }
@@ -189,6 +203,7 @@ const bluetooth = {
   },
   // 获取蓝牙设备某个服务中所有特征值(characteristic)
   getBLEDeviceCharacteristics(deviceId, serviceId) {
+    const _this = this
     wx.getBLEDeviceCharacteristics({
       deviceId,
       serviceId,
@@ -204,11 +219,11 @@ const bluetooth = {
             })
           }
           if (item.properties.write) {
-            this.canWrite = true
-            this._deviceId = deviceId
-            this._serviceId = serviceId
-            this._characteristicId = item.uuid
-            // this.writeBLECharacteristicValue(['0x55', '0x03', '0x11', '0x01', '0x6A'])
+            _this.canWrite = true
+            _this._deviceId = deviceId
+            _this._serviceId = serviceId
+            _this._characteristicId = item.uuid
+            // _this.writeBLECharacteristicValue(['0x55', '0x03', '0x11', '0x01', '0x6A'])
           }
           if (item.properties.notify || item.properties.indicate) {
             wx.notifyBLECharacteristicValueChange({
@@ -228,7 +243,7 @@ const bluetooth = {
     wx.onBLECharacteristicValueChange((characteristic) => {
       const msg = ab2hex(characteristic.value)
       console.log('接收到的数据：', msg)
-      this.subs.forEach(cb => {
+      _this.subs.forEach(cb => {
         cb(msg)
       })
     })
@@ -265,9 +280,9 @@ const bluetooth = {
     let writeDatas = hexCharCodeToStr(dataHex)
     console.log('发送的数据：' + writeDatas)
     wx.writeBLECharacteristicValue({
-      deviceId: this._deviceId,
-      serviceId: this._serviceId,
-      characteristicId: this._characteristicId,
+      deviceId: _this._deviceId,
+      serviceId: _this._serviceId,
+      characteristicId: _this._characteristicId,
       value: dataBuffer,
       success: function (res) {
         console.log('message发送成功')

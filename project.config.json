@@ -3,7 +3,7 @@
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
 		"urlCheck": true,
-		"es6": false,
+		"es6": true,
 		"enhance": true,
 		"postcss": true,
 		"minified": true,
@@ -20,7 +20,9 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"appid": "wx8b6569e2ae2196cc",
 	"projectname": "eyesTest",

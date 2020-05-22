@@ -50,13 +50,13 @@ Page({
   },
   save () {
     const _this = this
-    bluebooth.closeDistance(this.onMsg)
+    bluebooth.closeDistance(_this.onMsg)
     if (!this.data.value) {
       wx.showToast({
         icon: 'none',
         title: '请先连接设备然后测量身高',
         complete: function () {
-          bluebooth.openDistance(this.onMsg)
+          bluebooth.openDistance(_this.onMsg)
         }
       })
       return
