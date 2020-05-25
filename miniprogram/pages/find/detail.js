@@ -1,4 +1,4 @@
-import list from '../../utils/find-list'
+import articles from './findClass'
 
 Page({
 
@@ -15,8 +15,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      detail: list[options.index],
-      list: list[options.index].data
+      detail: articles.current,
+      list: (articles.current && articles.current.data) || []
     })
   },
 

@@ -55,13 +55,11 @@ const bluetooth = {
   },
   subs: [],
   init () {
-    console.log('蓝牙 init')
     this.openBluetoothAdapter()
     this.getBluetoothAdapterState()
   },
   // 初始化蓝牙模块
   openBluetoothAdapter() {
-    console.log('初始化蓝牙模块')
     const _this = this
     wx.openBluetoothAdapter({
       success: (res) => {
@@ -86,14 +84,18 @@ const bluetooth = {
   // 获取本机蓝牙适配器状态
   getBluetoothAdapterState() {
     const _this = this
+    console.log('getBluetoothAdapterState')
     wx.getBluetoothAdapterState({
       success: (res) => {
         console.log('getBluetoothAdapterState', res)
         if (res.discovering) {
           _this.onBluetoothDeviceFound()
-        } else if (res.available) {
+        } else if (res.available) { // 适配器是否可用
           _this.startBluetoothDevicesDiscovery()
         }
+      },
+      fail: (e) => {
+        console.log(e)
       }
     })
   },

@@ -74,7 +74,12 @@ export const getHeightRecords = uid => wx.cloud.callFunction({
   data: { uid }
 })
 
-// 查询所有测试记录
+// 获取一些需求设置
 export const getSetting = () => wx.cloud.callFunction({
   name: 'getSetting'
+})
+
+// 查询所有文章
+export const getArticles = () => wx.cloud.callFunction({
+  name: 'getArticles'
 })
