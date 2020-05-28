@@ -34,6 +34,10 @@
       <image src="{{ '/images/home/tab' + (index + 1) + '.png' }}"></image>
     </view>
   </view>
+
+  <view class="btn-container">
+    <view class="btn-main" bindtap="connectBluetooth">连接蓝牙</view>
+  </view>
 </view>
 
 <view class="setting-container" wx:if="{{ settingShow }}">

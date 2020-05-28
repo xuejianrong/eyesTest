@@ -43,7 +43,6 @@ page {
 .doc-top__btn {
   position: absolute;
   right: 41rpx;
-  bottom: 48rpx;
   width: 46rpx;
   height: 46rpx;
   border: 3rpx solid #fff;
@@ -52,6 +51,12 @@ page {
   color: #fff;
   padding-top: 4rpx;
   box-sizing: border-box;
+}
+.doc-top__btn.charts {
+  bottom: 30rpx;
+}
+.doc-top__btn.edit {
+  top: 30rpx;
 }
 .doc-btn-start {
   position: fixed;

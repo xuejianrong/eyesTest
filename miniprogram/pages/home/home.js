@@ -258,5 +258,9 @@ Page({
     wx.setScreenBrightness({
       value
     })
+  },
+  connectBluetooth () {
+    console.log('手动重新连接')
+    bluebooth.reconnect()
   }
 })

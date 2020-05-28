@@ -257,3 +257,6 @@
 .setting-content__5 .img2 {
   right: -35rpx;
 }
+.btn-container {
+  padding-top: 46rpx;
+}

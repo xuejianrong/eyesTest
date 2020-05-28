@@ -18,7 +18,9 @@ Page({
     records2: [], // 眼镜数据
     heightRecords: [], // 身高数据
     loading: true,
-    tabState: '1'
+    tabState: '1',
+    showDialog: false,
+    height: ''
   },
 
   /**
@@ -312,4 +314,20 @@ Page({
       })
     }
   },
+  editHeight () {
+    this.setData({ showDialog: true })
+  },
+  saveHeight () {
+    api.addHeightRecord({uid: app.globalData.currentUser._id,  height: this.data.height }).then(res => {
+      wx.showToast({
+        icon: 'none',
+        title: '保存成功'
+      })
+    })
+  },
+  onInputChange (event) {
+    this.setData({
+      height: event.detail
+    })
+  }
 })

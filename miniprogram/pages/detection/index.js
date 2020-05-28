@@ -5,8 +5,8 @@ let app = getApp()
 const api = require('../../apis/index.js')
 const answerKey = require('../../utils/answer-key.js')
 
-const innerAudioContext_start = wx.createInnerAudioContext()
-innerAudioContext_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/start.mp3'
+const innerAudioContext_left_start = wx.createInnerAudioContext()
+innerAudioContext_left_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/left-start.mp3'
 const innerAudioContext_right_start = wx.createInnerAudioContext()
 innerAudioContext_right_start.src = 'cloud://release-x9wki.7265-release-x9wki-1301385683/audio/right-start.mp3'
 const innerAudioContext_over = wx.createInnerAudioContext()
@@ -20,7 +20,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type: 'left', // left 左眼，right 右眼
+    type: 'right', // left 左眼，right 右眼
     start: 0, // list的下标 视标范围的开始
     end: 13, // list的下标 视标范围的结束
     current: 0, // list的下标 当前测试到哪个视标
@@ -127,12 +127,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // 因为文件不对，不使用语音先
-    // if (this.data.type === 'left') {
-    //   innerAudioContext_start.play()
-    // } else {
-    //   innerAudioContext_right_start.play()
-    // }
+    if (this.data.type === 'right') {
+      innerAudioContext_left_start.play()
+    } else {
+      innerAudioContext_right_start.play()
+    }
   },
 
   /**
@@ -177,6 +176,7 @@ Page({
    */
   onHide: function () {
     this.closeBluetoothAdapter()
+    this.streamRecordEnd()
   },
 
   /**
@@ -343,7 +343,7 @@ Page({
     const item = this.data.list[this.data.current]
     this.data.resultList.push({ index: this.data.current, right, wrong, v1: item.v1, v2: item.v2 })
     console.log('测试结果：', this.data.type + '眼视力值为 ' + this.data.list[index].value)
-    // this.data.type === 'right' && innerAudioContext_over.play()
+    this.data.type === 'left' && innerAudioContext_over.play()
     wx.getStorage({
       key: 'result',
       success: function (res) {
@@ -611,6 +611,7 @@ Page({
           break;
         case '55038200da':
           console.log('点击了确定')
+          this.answerWrong()
           break;
         default:
           break;

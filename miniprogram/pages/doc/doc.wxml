@@ -7,7 +7,10 @@
     <view class="doc-top__birth">身高:{{ user.height }}cm 体重:{{ user.weight }}kg</view>
     <view class="doc-top__birth">出生日期:{{ user.birth }}</view>
   </view>
-  <view class="doc-top__btn" bindtap="toogleChart">
+  <view class="doc-top__btn edit" bindtap="editHeight">
+    <van-icon name="edit" />
+  </view>
+  <view class="doc-top__btn charts" bindtap="toogleChart">
     <van-icon wx:if="{{ showChart }}" name="arrow-up" />
     <van-icon wx:else name="bar-chart-o" />
   </view>
@@ -51,3 +54,19 @@
     </view>
   </view>
 </view>
+
+<van-dialog
+  use-slot
+  title="身高(cm)"
+  show="{{ showDialog }}"
+  show-cancel-button
+  confirm-button-text="保存"
+  bind:confirm="saveHeight"
+>
+  <van-field
+    value="{{ height }}"
+    placeholder="请输入身高"
+    border="{{ true }}"
+    bind:change="onInputChange"
+  />
+</van-dialog>

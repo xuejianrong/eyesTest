@@ -124,6 +124,7 @@ const bluetooth = {
   onBluetoothDeviceFound() {
     const _this = this
     wx.onBluetoothDeviceFound((res) => {
+      console.log('发现的蓝牙:', res.devices)
       if (_this.mainDevice) return
       res.devices.forEach(device => {
         if (!device.name && !device.localName) {
@@ -138,8 +139,11 @@ const bluetooth = {
         }
         device.name = device.name || device.localName
         if (/^DXLD-.{4}$/.test(device.name)) {
+          console.log('存在符合要求的蓝牙✅')
           _this.mainDevice = device
           _this.createBLEConnection(device)
+        } else {
+          console.log('不存在符合要求的蓝牙❌')
         }
       })
     })
@@ -153,10 +157,15 @@ const bluetooth = {
       console.log(`设备ID:${deviceId}已${connected ? '连接' : '断开连接'}`)
       // 如果是断开连接，就重新开始搜索设备
       if (!connected) {
-        _this.resetOptions()
-        _this.startBluetoothDevicesDiscovery()
+        console.log('连接已断开，尝试重新连接')
+        _this.reconnect()
       }
     })
+  },
+  // 重新连接
+  reconnect () {
+    this.resetOptions()
+    this.startBluetoothDevicesDiscovery()
   },
   // 连接低功耗蓝牙设备
   createBLEConnection(device) {
